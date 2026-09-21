@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IC Root Solutions — Architectural Diagnostics & Teardowns</title>
+  <title>IC Root Solutions — Universal Problem Diagnostic & Multimodal Triage</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <style>
@@ -29,7 +29,7 @@
     header { text-align: center; margin-bottom: 32px; }
     h1 { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--text-main); margin-bottom: 6px; }
     .tagline { color: var(--accent-gold); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-    .intro { color: var(--text-muted); font-size: 14px; margin-top: 10px; }
+    .intro { color: var(--text-muted); font-size: 14px; margin-top: 10px; max-width: 560px; margin-left: auto; margin-right: auto; }
     
     .gate {
       background: var(--card-bg);
@@ -81,7 +81,23 @@
       margin-top: 8px;
       font-family: inherit;
     }
-    textarea { resize: vertical; min-height: 90px; }
+    textarea { resize: vertical; min-height: 110px; }
+    
+    /* Multimodal Upload Styling */
+    .file-dropzone {
+      border: 2px dashed rgba(212, 165, 116, 0.3);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      margin-top: 10px;
+      background: rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .file-dropzone:hover { border-color: var(--accent-gold); background: rgba(212, 165, 116, 0.05); }
+    .file-dropzone span { font-size: 13px; color: var(--text-muted); display: block; margin-top: 4px; }
+    .file-list { font-size: 12px; color: var(--accent-blue); margin-top: 6px; font-family: monospace; }
+    
     .checkbox-row { display: flex; align-items: flex-start; gap: 10px; margin-top: 14px; font-size: 13px; color: var(--text-muted); }
     .checkbox-row input { margin-top: 3px; }
     
@@ -111,74 +127,86 @@
   <div class="container">
     <header>
       <div class="tagline">IC Root Solutions</div>
-      <h1>Architectural Diagnostic Grid</h1>
-      <p class="intro">100% Asynchronous Written Teardowns • 48-Hour SLA • Zero Meetings</p>
+      <h1>Universal Problem Diagnostic & Triage</h1>
+      <p class="intro">For self-starters, operators, and enterprises facing a critical crossroads. 100% Asynchronous Written Teardowns • Zero Meetings • Pure Ground Truth.</p>
     </header>
 
-    <!-- Gate 1: 3x3 Door -->
+    <!-- Gate 1: 3x3 Pressure Door -->
     <div class="gate">
-      <div class="gate-title"><span>Gate 1: Primary Pain Door</span><small>Select 1</small></div>
+      <div class="gate-title"><span>Gate 1: The Core Pressure Point</span><small>Select 1</small></div>
       <div class="grid-3x3" id="gate1">
-        <button class="tile" onclick="selectGate1(this, 'AI-DRIFT')">AI & Model Drift</button>
-        <button class="tile" onclick="selectGate1(this, 'TOKEN-BLEED')">Cloud & Token Bleed</button>
-        <button class="tile" onclick="selectGate1(this, 'ARCH-BOTTLENECK')">Architecture Bottleneck</button>
-        <button class="tile" onclick="selectGate1(this, 'LEGACY-DRAG')">Legacy Tech Drag</button>
-        <button class="tile" onclick="selectGate1(this, 'LATENCY-SCALE')">Latency & Scaling</button>
-        <button class="tile" onclick="selectGate1(this, 'SECURITY')">Security & Compliance</button>
-        <button class="tile" onclick="selectGate1(this, 'GRIDLOCK')">Execution Gridlock</button>
-        <button class="tile" onclick="selectGate1(this, 'BURNOUT')">Team Burnout</button>
-        <button class="tile" onclick="selectGate1(this, 'VENDOR-LOCK')">Vendor Lock-in</button>
+        <button class="tile" onclick="selectGate1(this, 'RUNWAY-BLEED')">Running Out of Runway / Cash</button>
+        <button class="tile" onclick="selectGate1(this, 'LAST-SHOT')">The Last Shot / Critical Crossroads</button>
+        <button class="tile" onclick="selectGate1(this, 'SPINNING-WHEELS')">Grinding Non-Stop, Zero Traction</button>
+        <button class="tile" onclick="selectGate1(this, 'GATEKEEPER-BLOCK')">Blocked by Gatekeepers & Doors</button>
+        <button class="tile" onclick="selectGate1(this, 'CHAOS-SPRAWL')">Operational Chaos & Sprawl</button>
+        <button class="tile" onclick="selectGate1(this, 'BROKEN-SYSTEM')">Broken System / Won't Scale</button>
+        <button class="tile" onclick="selectGate1(this, 'BURNOUT-EXHAUSTION')">Mental Burnout & Exhaustion</button>
+        <button class="tile" onclick="selectGate1(this, 'ISOLATION')">Isolated / Need Brutal Truth</button>
+        <button class="tile" onclick="selectGate1(this, 'HIGH-STAKES')">High-Stakes Scale & Expansion</button>
       </div>
     </div>
 
-    <!-- Gate 2: Stage of Failure -->
+    <!-- Gate 2: Where Are You Standing? -->
     <div class="gate">
-      <div class="gate-title"><span>Gate 2: Stage of Failure</span><small>Select 1</small></div>
+      <div class="gate-title"><span>Gate 2: Where Are You Standing?</span><small>Select 1</small></div>
       <div class="grid-3" id="gate2">
-        <button class="tile" onclick="selectGate2(this, 'CONCEPT')">Concept & Design</button>
-        <button class="tile" onclick="selectGate2(this, 'BROKEN')">Active / Broken</button>
-        <button class="tile" onclick="selectGate2(this, 'SCALING')">Scaling / Costly</button>
+        <button class="tile" onclick="selectGate2(this, 'SURVIVAL')">Survival Mode (On the ropes)</button>
+        <button class="tile" onclick="selectGate2(this, 'BREAKING-POINT')">Breaking Point (Weight crushing you)</button>
+        <button class="tile" onclick="selectGate2(this, 'CROSSROADS')">The Crossroads (Big decision ahead)</button>
       </div>
     </div>
 
-    <!-- Gate 3: Target Metric -->
+    <!-- Gate 3: Desired Relief -->
     <div class="gate">
-      <div class="gate-title"><span>Gate 3: Target Metric</span><small>Select 1</small></div>
+      <div class="gate-title"><span>Gate 3: What Do You Need Delivered?</span><small>Select 1</small></div>
       <div class="grid-3" id="gate3">
-        <button class="tile" onclick="selectGate3(this, 'SLASH-COST')">Slash Cost & Tokens</button>
-        <button class="tile" onclick="selectGate3(this, 'VELOCITY')">Unblock Velocity</button>
-        <button class="tile" onclick="selectGate3(this, 'STABILIZE')">Stabilize Stack</button>
+        <button class="tile" onclick="selectGate3(this, 'STOP-BLEED')">Stop the Bleed & Stabilize</button>
+        <button class="tile" onclick="selectGate3(this, 'CLEAR-FOG')">Clear the Fog & Map Next Moves</button>
+        <button class="tile" onclick="selectGate3(this, 'BATTLE-PLAN')">The Complete Battle Plan</button>
       </div>
     </div>
 
-    <!-- Gate 4: 5-Word Vector Chips -->
+    <!-- Gate 4: Psychological Friction Chips -->
     <div class="gate">
       <div class="gate-title"><span>Gate 4: Core Friction Vectors</span><small id="chipCounter">Select up to 5 (0/5)</small></div>
       <div class="chips-grid" id="gate4">
-        <button class="chip" onclick="toggleChip(this, 'TIM')">Timing</button>
-        <button class="chip" onclick="toggleChip(this, 'CST')">Cost</button>
-        <button class="chip" onclick="toggleChip(this, 'FEA')">Feasibility</button>
-        <button class="chip" onclick="toggleChip(this, 'RSK')">Risk</button>
-        <button class="chip" onclick="toggleChip(this, 'LAT')">Latency</button>
-        <button class="chip" onclick="toggleChip(this, 'BRN')">Burnout</button>
-        <button class="chip" onclick="toggleChip(this, 'INR')">Inertia</button>
-        <button class="chip" onclick="toggleChip(this, 'SCL')">Scale</button>
-        <button class="chip" onclick="toggleChip(this, 'GOV')">Governance</button>
-        <button class="chip" onclick="toggleChip(this, 'DIS')">Distrust</button>
-        <button class="chip" onclick="toggleChip(this, 'EXE')">Execution</button>
-        <button class="chip" onclick="toggleChip(this, 'CMP')">Compliance</button>
-        <button class="chip" onclick="toggleChip(this, 'QLT')">Quality</button>
-        <button class="chip" onclick="toggleChip(this, 'POL')">Politics</button>
-        <button class="chip" onclick="toggleChip(this, 'OVH')">Overhead</button>
+        <button class="chip" onclick="toggleChip(this, 'EXH')">Exhaustion</button>
+        <button class="chip" onclick="toggleChip(this, 'CAP')">Capital Bleed</button>
+        <button class="chip" onclick="toggleChip(this, 'ISO')">Isolation</button>
+        <button class="chip" onclick="toggleChip(this, 'GAT')">Gatekeepers</button>
+        <button class="chip" onclick="toggleChip(this, 'TIM')">Bad Timing</button>
+        <button class="chip" onclick="toggleChip(this, 'CPX')">Complexity</button>
+        <button class="chip" onclick="toggleChip(this, 'FEA')">Fear of Ruin</button>
+        <button class="chip" onclick="toggleChip(this, 'PRM')">Broken Promises</button>
+        <button class="chip" onclick="toggleChip(this, 'BUR')">Bureaucracy</button>
+        <button class="chip" onclick="toggleChip(this, 'LEV')">Lost Leverage</button>
+        <button class="chip" onclick="toggleChip(this, 'OVT')">Overthinking</button>
+        <button class="chip" onclick="toggleChip(this, 'ADV')">Bad Advice</button>
+        <button class="chip" onclick="toggleChip(this, 'STR')">Health / Stress</button>
+        <button class="chip" onclick="toggleChip(this, 'FAM')">Family Weight</button>
+        <button class="chip" onclick="toggleChip(this, 'CYN')">Cynicism</button>
       </div>
     </div>
 
-    <!-- Gate 5: Scope & Delivery -->
+    <!-- Gate 5: The Garble Box (Multimodal) -->
     <div class="gate">
-      <div class="gate-title"><span>Gate 5: Scope & Delivery</span></div>
+      <div class="gate-title"><span>Gate 5: The Garble Box (Multimodal Intake)</span><small>Accepts Any File or Input</small></div>
       
-      <label style="font-size:13px; color:var(--text-muted);">The Terminal "Garble Box" (Unstructured context, logs, or raw notes):</label>
-      <textarea id="garbleBox" placeholder="Dump raw thoughts, error codes, stack details, or frustration here..."></textarea>
+      <label style="font-size:13px; color:var(--text-muted);">Raw Context & Stream of Consciousness:</label>
+      <textarea id="garbleBox" placeholder="Tell us your unvarnished reality. No corporate polish needed. Dump raw thoughts, financial numbers, error logs, or voice memo notes here..."></textarea>
+
+      <!-- Multimodal Upload & Link Attachments -->
+      <label style="font-size:13px; color:var(--text-muted); margin-top:12px; display:block;">Attach Any Files (Screenshots, PDFs, Voice Notes, Logs, Spreadsheets):</label>
+      <div class="file-dropzone" onclick="document.getElementById('fileInput').click()">
+        📁 <strong>Click to attach files</strong> or drag and drop
+        <span>Supports images, audio files, PDFs, spreadsheets, and code files</span>
+        <input type="file" id="fileInput" multiple style="display:none;" onchange="handleFiles(this)" />
+        <div class="file-list" id="fileList"></div>
+      </div>
+
+      <label style="font-size:13px; color:var(--text-muted); margin-top:12px; display:block;">Or Paste Cloud Links (Google Drive, Dropbox, Loom, Docs, GitHub):</label>
+      <input type="text" id="cloudLinks" placeholder="https://drive.google.com/... or https://loom.com/..." />
 
       <label style="font-size:13px; color:var(--text-muted); margin-top:12px; display:block;">Select Engagement Tier:</label>
       <select id="tierSelect">
@@ -188,7 +216,7 @@
       </select>
 
       <label style="font-size:13px; color:var(--text-muted); margin-top:12px; display:block;">Your Email or LinkedIn URL:</label>
-      <input type="text" id="clientIdentity" placeholder="name@company.com or linkedin.com/in/..." required />
+      <input type="text" id="clientIdentity" placeholder="name@domain.com or linkedin.com/in/..." required />
 
       <div class="checkbox-row">
         <input type="checkbox" id="policyAgreement" required />
@@ -201,13 +229,14 @@
   </div>
 
   <script>
-    let g1 = "AI-DRIFT", g2 = "BROKEN", g3 = "VELOCITY";
+    let g1 = "RUNWAY-BLEED", g2 = "SURVIVAL", g3 = "STOP-BLEED";
     let selectedChips = [];
+    let attachedFileNames = [];
 
-    // Replace with your Stripe Payment Link URLs
+    // Live Stripe Payment Links
     const STRIPE_LINKS = {
-      single: "https://buy.stripe.com/REPLACE_WITH_SINGLE_350_LINK",
-      silver: "https://buy.stripe.com/REPLACE_WITH_SILVER_850_LINK",
+      single: "https://buy.stripe.com/eVq9ATc1o1rm1B34cM3ks01",
+      silver: "https://buy.stripe.com/cNi28r2qO0ni6VncJi3ks02",
       gold:   "https://buy.stripe.com/REPLACE_WITH_GOLD_2250_LINK"
     };
 
@@ -242,10 +271,17 @@
       updateHash();
     }
 
+    function handleFiles(input) {
+      attachedFileNames = Array.from(input.files).map(f => f.name);
+      document.getElementById('fileList').innerText = attachedFileNames.length > 0 ? `Attached (${attachedFileNames.length}): ${attachedFileNames.join(', ')}` : '';
+      updateHash();
+    }
+
     function generateHash() {
-      const chipsStr = selectedChips.length > 0 ? `[${selectedChips.join('')}]` : '[NONE]';
+      const chipsStr = selectedChips.length > 0 ? `[${selectedChips.join('-')}]` : '[RAW-TRUTH]';
+      const fileFlag = attachedFileNames.length > 0 ? 'M' : 'T';
       const randHex = Math.random().toString(16).substring(2, 6).toUpperCase();
-      return `#QNS-${g1.substring(0,3)}-${g2.substring(0,2)}-${g3.substring(0,2)}-${chipsStr}-${randHex}`;
+      return `#QNS-${g1.substring(0,4)}-${g2.substring(0,3)}-${g3.substring(0,3)}-${chipsStr}-${fileFlag}-${randHex}`;
     }
 
     function updateHash() {
@@ -255,12 +291,17 @@
     function submitGrid() {
       const email = document.getElementById('clientIdentity').value.trim();
       const agreed = document.getElementById('policyAgreement').checked;
-      if (!email) { alert('Please enter your email or LinkedIn URL.'); return; }
+      if (!email) { alert('Please enter your email or contact URL.'); return; }
       if (!agreed) { alert('Please acknowledge the 100% written review policy.'); return; }
 
       const hash = generateHash();
       const tier = document.getElementById('tierSelect').value;
-      const targetUrl = STRIPE_LINKS[tier] || STRIPE_LINKS.single;
+      
+      // Routes to selected tier; falls back to $350 single if Gold isn't added yet
+      let targetUrl = STRIPE_LINKS[tier];
+      if (!targetUrl || targetUrl.includes("REPLACE_WITH")) {
+        targetUrl = STRIPE_LINKS.single;
+      }
 
       window.location.href = `${targetUrl}?client_reference_id=${encodeURIComponent(hash)}&prefilled_email=${encodeURIComponent(email)}`;
     }
