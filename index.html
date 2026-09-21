@@ -26,7 +26,7 @@
   <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -40,19 +40,19 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between bg-slate-50 text-slate-900 dark:bg-[#0b0f19] dark:text-slate-100 selection:bg-emerald-500 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between bg-slate-50 text-slate-900 dark:bg-[#070b12] dark:text-slate-100 selection:bg-emerald-500 selection:text-black">
 
-  <!-- Top Executive Navigation Bar -->
-  <header class="border-b border-slate-200 dark:border-slate-800/80 bg-white/90 dark:bg-[#0e1322]/90 backdrop-blur-md sticky top-0 z-40 px-4 lg:px-8 py-3 flex items-center justify-between gap-3">
+  <!-- Top Cybernetic Header -->
+  <header class="border-b border-slate-200 dark:border-slate-800/80 bg-white/90 dark:bg-[#0a0f1d]/90 backdrop-blur-md sticky top-0 z-40 px-4 lg:px-8 py-3 flex items-center justify-between gap-3 shadow-sm">
     <div class="flex items-center gap-3">
-      <span class="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]"></span>
       <div>
         <h1 class="text-[11px] tracking-widest uppercase font-mono font-bold text-slate-500 dark:text-slate-400">Quantum Neural Systems // Cockpit</h1>
         <p class="text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400" id="telemetryHash">VECTOR: #QNS-EXEC-READY</p>
       </div>
     </div>
 
-    <!-- Controls: Role, Theme, and Vault Jump -->
+    <!-- Controls -->
     <div class="flex items-center gap-3">
       <!-- Role Switcher -->
       <div class="hidden sm:flex items-center bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-1 text-xs font-mono">
@@ -60,32 +60,32 @@
         <button onclick="setRole('proxy')" id="role-proxy" class="px-3 py-1 rounded text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">Assistant / Proxy</button>
       </div>
 
-      <!-- Light / Dark Theme Switcher -->
+      <!-- Theme Switcher -->
       <button onclick="toggleTheme()" class="p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition" title="Toggle Light/Dark Mode" id="themeToggleBtn">
         <span id="themeIcon">🌙</span>
       </button>
 
       <!-- Jump to Vault -->
-      <button onclick="scrollToVault()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold px-4 py-2 rounded-lg transition shadow-sm flex items-center gap-1.5">
-        <span>Proceed to Vault</span>
+      <button onclick="scrollToVault()" class="bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-mono text-xs font-bold px-4 py-2 rounded-lg transition shadow-[0_0_12px_rgba(16,185,129,0.25)] flex items-center gap-1.5">
+        <span>Proceed to Checkout</span>
         <span>↓</span>
       </button>
     </div>
   </header>
 
-  <!-- Main Diagnostic Workspace -->
+  <!-- Main Workspace -->
   <main class="flex-1 max-w-6xl w-full mx-auto p-4 lg:p-8 space-y-8">
     
-    <!-- Zero Judgment Banner -->
+    <!-- Zero Judgment Policy Banner -->
     <div class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs shadow-sm">
       <div class="flex items-center gap-2.5 text-slate-700 dark:text-slate-300">
         <span class="text-base">🛡️</span>
         <span><strong class="font-semibold text-slate-900 dark:text-slate-100">Zero-judgment policy:</strong> Describe current production reality—rough guesses and honest estimates are 100% fine.</span>
       </div>
-      <span class="font-mono text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/40 px-2.5 py-1 rounded-full whitespace-nowrap">100% Written Teardown • Zero Meetings</span>
+      <span class="font-mono text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800/40 px-2.5 py-1 rounded-full whitespace-nowrap">100% Written Teardown • Pay-Now Protocol</span>
     </div>
 
-    <!-- Sliders: Monthly Drain & Deadline -->
+    <!-- Triage & Sliders Section -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       
       <!-- Unit Economics / Monthly Bleed -->
@@ -162,7 +162,7 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <span class="text-base">💬</span>
-          <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-slate-700 dark:text-slate-300">The 3 Numbers for Your Boss (Copy/Paste to Slack)</h4>
+          <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-slate-700 dark:text-slate-300">Authorization Snippet (Copy/Paste to Slack)</h4>
         </div>
         <button onclick="copySlackMessage()" class="text-xs font-mono flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-md transition border border-slate-200 dark:border-slate-700">
           <span>📋</span>
@@ -170,7 +170,7 @@
         </button>
       </div>
       <div class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800/80 rounded-lg p-3 text-xs text-slate-700 dark:text-slate-400 font-mono leading-relaxed" id="slackMessageContent">
-        "Setting up our async teardown with IC Root now. Just need 3 numbers to hit send: 1) Are we authorizing the $350 triage, $850 audit, or $2,250 deep dive? 2) Hard deadline? 3) Best email for the invoice?"
+        "Setting up our async teardown with IC Root now. Just need 2 quick answers: 1) Are we authorizing the $350 triage, $850 audit, or $2,250 deep dive? 2) Hard deadline?"
       </div>
     </div>
 
@@ -181,56 +181,46 @@
         <div class="flex items-center justify-between flex-wrap gap-2">
           <div class="flex items-center gap-2">
             <span class="h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
-            <h3 class="text-base font-mono uppercase tracking-wider font-bold text-slate-900 dark:text-slate-100">IC Root // Briefing Vault & Checkout</h3>
+            <h3 class="text-base font-mono uppercase tracking-wider font-bold text-slate-900 dark:text-slate-100">IC Root // Briefing Vault & Stripe Checkout</h3>
           </div>
           <span class="text-xs font-mono text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 px-2.5 py-0.5 rounded">MNDA #ICROOT-SHA256-VERIFIED</span>
         </div>
-        <p class="text-xs text-slate-600 dark:text-slate-400">Strict zero-AI-training guarantee: No client code, telemetry, or diagrams are ever used to train commercial AI models.</p>
+        <p class="text-xs text-slate-600 dark:text-slate-400">Strict zero-AI-training warranty: No client code or architecture is ever used to train commercial AI models. Direct Stripe settlement required to lock telemetry.</p>
       </div>
 
-      <!-- Live 3-Tier Selector -->
+      <!-- PAY-NOW ONLY 3-TIER SELECTOR -->
       <div class="space-y-2">
-        <label class="block text-xs font-mono text-slate-700 dark:text-slate-300 font-bold uppercase">Select Diagnostic Service Tier</label>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <label class="block text-xs font-mono text-slate-700 dark:text-slate-300 font-bold uppercase">Select Diagnostic Service Tier (Pay-Now Only)</label>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           
           <!-- Tier 1: $350 -->
-          <label class="relative flex flex-col p-4 border-2 rounded-xl cursor-pointer transition border-emerald-500 bg-emerald-50/40 dark:bg-emerald-950/20" id="tier-350-label">
+          <label class="relative flex flex-col p-4 border-2 rounded-xl cursor-pointer transition border-emerald-500 bg-emerald-50/40 dark:bg-emerald-950/20 shadow-sm" id="tier-350-label">
             <input type="radio" name="serviceTier" value="$350 Targeted Triage" checked onchange="selectTier('tier350')" class="hidden">
             <div class="flex justify-between items-center mb-1">
               <span class="font-bold text-sm text-slate-900 dark:text-slate-100">Targeted Triage</span>
               <span class="font-mono font-bold text-emerald-600 dark:text-emerald-400">$350 CAD</span>
             </div>
-            <p class="text-[11px] text-slate-500 dark:text-slate-400">48h SLA. Solves single acute bottleneck or token leak cascade.</p>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">48h SLA. Rapid surgical triage of a single acute bottleneck, runaway loop, or billing spike.</p>
           </label>
 
           <!-- Tier 2: $850 -->
-          <label class="relative flex flex-col p-4 border-2 rounded-xl cursor-pointer transition border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/40" id="tier-850-label">
+          <label class="relative flex flex-col p-4 border-2 rounded-xl cursor-pointer transition border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/40 shadow-sm" id="tier-850-label">
             <input type="radio" name="serviceTier" value="$850 Architectural Teardown" onchange="selectTier('tier850')" class="hidden">
             <div class="flex justify-between items-center mb-1">
               <span class="font-bold text-sm text-slate-900 dark:text-slate-100">Teardown Memo</span>
               <span class="font-mono font-bold text-slate-900 dark:text-slate-100">$850 CAD</span>
             </div>
-            <p class="text-[11px] text-slate-500 dark:text-slate-400">5-Day SLA. Complete inference pipeline, prompt & caching review.</p>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">5-Day SLA. Complete audit of inference pipelines, prompt bloat, latency, and unit economics.</p>
           </label>
 
           <!-- Tier 3: $2,250 -->
-          <label class="relative flex flex-col p-4 border-2 rounded-xl cursor-pointer transition border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/40" id="tier-2250-label">
+          <label class="relative flex flex-col p-4 border-2 rounded-xl cursor-pointer transition border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/40 shadow-sm" id="tier-2250-label">
             <input type="radio" name="serviceTier" value="$2,250 Full-Stack Deep Dive" onchange="selectTier('tier2250')" class="hidden">
             <div class="flex justify-between items-center mb-1">
               <span class="font-bold text-sm text-slate-900 dark:text-slate-100">Full Deep Dive</span>
               <span class="font-mono font-bold text-slate-900 dark:text-slate-100">$2,250 CAD</span>
             </div>
-            <p class="text-[11px] text-slate-500 dark:text-slate-400">Priority SLA. End-to-end architecture, profiling & patch specs.</p>
-          </label>
-
-          <!-- Corporate Invoicing -->
-          <label class="relative flex flex-col p-4 border-2 rounded-xl cursor-pointer transition border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/40" id="tier-invoice-label">
-            <input type="radio" name="serviceTier" value="Corporate Invoicing (Net-30)" onchange="selectTier('invoice')" class="hidden">
-            <div class="flex justify-between items-center mb-1">
-              <span class="font-bold text-sm text-slate-900 dark:text-slate-100">Corp Invoice</span>
-              <span class="font-mono text-slate-500 dark:text-slate-400 text-xs">Net-30 PO</span>
-            </div>
-            <p class="text-[11px] text-slate-500 dark:text-slate-400">Formal invoice dispatched to your accounts payable team.</p>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">Priority SLA. End-to-end architecture teardown, profiling, and hands-on patch remediation.</p>
           </label>
 
         </div>
@@ -244,7 +234,7 @@
         </div>
 
         <div class="space-y-1.5">
-          <label class="block text-xs font-mono text-slate-700 dark:text-slate-300 font-semibold">2. Invoicing & Delivery Contact Email <span class="text-emerald-500">*</span></label>
+          <label class="block text-xs font-mono text-slate-700 dark:text-slate-300 font-semibold">2. Receipt & Report Delivery Email <span class="text-emerald-500">*</span></label>
           <input type="email" id="emailInput" required placeholder="founder@company.com" class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-3.5 py-2.5 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-emerald-500 font-mono">
         </div>
       </div>
@@ -268,13 +258,13 @@
 
       <!-- Notes Textarea -->
       <div class="space-y-1.5">
-        <label class="block text-xs font-mono text-slate-700 dark:text-slate-300 font-semibold">4. Unvarnished Reality (What's on fire?)</label>
+        <label class="block text-xs font-mono text-slate-700 dark:text-slate-300 font-semibold">4. Unvarnished Production Reality (What's on fire?)</label>
         <textarea id="notesInput" rows="3" placeholder="Context, error traces, or specific symptoms..." class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg p-3 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-emerald-500 font-mono"></textarea>
       </div>
 
       <!-- Action Button -->
-      <button onclick="triggerSubmit()" id="vaultSubmitBtn" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold py-4 rounded-xl transition shadow-md flex items-center justify-center gap-2">
-        <span id="submitBtnText">Lock Telemetry & Proceed to Stripe ($350 CAD)</span>
+      <button onclick="triggerSubmit()" id="vaultSubmitBtn" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-mono text-xs font-bold py-4 rounded-xl transition shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
+        <span id="submitBtnText">Lock Telemetry & Pay via Stripe ($350 CAD)</span>
         <span>→</span>
       </button>
 
@@ -282,324 +272,23 @@
 
   </main>
 
-  <!-- Sticky Bottom Quick Action Bar -->
-  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#0e1322]/95 backdrop-blur-md sticky bottom-0 z-30 px-4 lg:px-8 py-3.5">
+  <!-- Sticky Quick Action Bar -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#0a0f1d]/95 backdrop-blur-md sticky bottom-0 z-30 px-4 lg:px-8 py-3.5">
     <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
       <div class="text-xs font-mono">
         <span class="text-slate-500 dark:text-slate-400">SELECTED:</span>
         <span class="text-emerald-600 dark:text-emerald-400 font-bold text-sm" id="selectedCount">0 items</span>
       </div>
-      <button onclick="scrollToVault()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold px-6 py-2.5 rounded-lg transition shadow-sm flex items-center gap-2">
+      <button onclick="scrollToVault()" class="bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-mono text-xs font-bold px-6 py-2.5 rounded-lg transition shadow-sm flex items-center gap-2">
         <span>Proceed to Checkout</span>
         <span>↓</span>
       </button>
     </div>
   </footer>
 
-  <!-- Live Application Script -->
+  <!-- Application Logic -->
   <script>
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/maenebap";
 
-    // LIVE STRIPE PAYMENT LINKS
+    // EXACT LIVE STRIPE PAYMENT LINKS
     const STRIPE_LINKS = {
-      tier350: "https://buy.stripe.com/eVq9ATc1o1rm1B34cM3ks01", 
-      tier850: "https://buy.stripe.com/cNi28r2qO0ni6VncJi3ks02",
-      tier2250: "https://buy.stripe.com/28E7sL8Pc0ni1B3dNm3ks03",
-      invoice: null
-    };
-
-    let currentRole = 'founder';
-    let currentTier = 'tier350';
-    let selectedChips = new Set();
-    let selectedOutcomes = new Set();
-    let uploadedFiles = [];
-
-    const categories = [
-      { id: 'cat_token', title: 'Token & Cloud Bleed', chips: ['Unbounded Loop Burn', 'Non-cached Prompt Bloat', 'Sudden Invoice Spikes'] },
-      { id: 'cat_agent', title: 'Zombie Workflows', chips: ['Deadlock Tool Calls', 'Hallucinatory Branching', 'Endless Retry Cascades'] },
-      { id: 'cat_context', title: 'Context Collapse', chips: ['Window Token Saturation', 'System Prompt Degradation', 'Loss of Entity State'] },
-      { id: 'cat_latency', title: 'Data Plumbing & Latency', chips: ['High P99 Token Lag', 'Cold-start Container Delays', 'Unoptimized Vector Retrieval'] },
-      { id: 'cat_drift', title: 'Prompt & Output Drift', chips: ['Unreliable JSON Schemas', 'API Model Version Shifts', 'Reasoning Degradation'] },
-      { id: 'cat_human', title: 'Human Bottlenecks', chips: ['Manual Review Drag', 'High Escalation Volume', 'No Fallback Degraded Mode'] }
-    ];
-
-    const outcomes = [
-      'Cut Token / API Spend by 40%+',
-      'Enforce Sub-300ms SLA & Streaming',
-      'Lock Deterministic Structured JSON',
-      'Eliminate Agent Infinite Loops'
-    ];
-
-    function initTheme() {
-      const saved = localStorage.getItem('qns-theme');
-      if (saved === 'light') {
-        document.documentElement.classList.remove('dark');
-        document.getElementById('themeIcon').innerText = '☀️';
-      } else {
-        document.documentElement.classList.add('dark');
-        document.getElementById('themeIcon').innerText = '🌙';
-      }
-    }
-
-    function toggleTheme() {
-      if (document.documentElement.classList.contains('dark')) {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('qns-theme', 'light');
-        document.getElementById('themeIcon').innerText = '☀️';
-      } else {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('qns-theme', 'dark');
-        document.getElementById('themeIcon').innerText = '🌙';
-      }
-    }
-
-    function init() {
-      initTheme();
-
-      const chipContainer = document.getElementById('chipGrid');
-      chipContainer.innerHTML = '';
-      categories.forEach(cat => {
-        cat.chips.forEach(chip => {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'text-left text-xs p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 text-slate-700 dark:text-slate-300 hover:border-slate-400 dark:hover:border-slate-700 transition font-mono shadow-sm';
-          btn.innerHTML = `<span class="text-slate-400 dark:text-slate-500 text-[10px] block mb-0.5">// ${cat.title}</span>${chip}`;
-          btn.onclick = () => toggleChip(btn, `${cat.title}: ${chip}`);
-          chipContainer.appendChild(btn);
-        });
-      });
-
-      const outcomeContainer = document.getElementById('outcomeGrid');
-      outcomeContainer.innerHTML = '';
-      outcomes.forEach(out => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'text-left text-xs p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 text-slate-700 dark:text-slate-300 hover:border-slate-400 dark:hover:border-slate-700 transition font-mono shadow-sm';
-        btn.textContent = out;
-        btn.onclick = () => toggleOutcome(btn, out);
-        outcomeContainer.appendChild(btn);
-      });
-
-      updateSliders();
-    }
-
-    function toggleChip(btn, val) {
-      if (selectedChips.has(val)) {
-        selectedChips.delete(val);
-        btn.classList.remove('border-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-950/40', 'text-emerald-800', 'dark:text-emerald-300');
-        btn.classList.add('border-slate-200', 'dark:border-slate-800', 'text-slate-700', 'dark:text-slate-300');
-      } else {
-        selectedChips.add(val);
-        btn.classList.remove('border-slate-200', 'dark:border-slate-800', 'text-slate-700', 'dark:text-slate-300');
-        btn.classList.add('border-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-950/40', 'text-emerald-800', 'dark:text-emerald-300');
-      }
-      updateCounts();
-    }
-
-    function toggleOutcome(btn, val) {
-      if (selectedOutcomes.has(val)) {
-        selectedOutcomes.delete(val);
-        btn.classList.remove('border-cyan-500', 'bg-cyan-50', 'dark:bg-cyan-950/40', 'text-cyan-800', 'dark:text-cyan-300');
-        btn.classList.add('border-slate-200', 'dark:border-slate-800', 'text-slate-700', 'dark:text-slate-300');
-      } else {
-        selectedOutcomes.add(val);
-        btn.classList.remove('border-slate-200', 'dark:border-slate-800', 'text-slate-700', 'dark:text-slate-300');
-        btn.classList.add('border-cyan-500', 'bg-cyan-50', 'dark:bg-cyan-950/40', 'text-cyan-800', 'dark:text-cyan-300');
-      }
-      updateCounts();
-    }
-
-    function updateCounts() {
-      const total = selectedChips.size + selectedOutcomes.size;
-      document.getElementById('selectedCount').innerText = `${total} items`;
-    }
-
-    function selectTier(tier) {
-      currentTier = tier;
-      ['tier350', 'tier850', 'tier2250', 'invoice'].forEach(t => {
-        const key = t.replace('tier', '');
-        const label = document.getElementById(`tier-${key}-label`);
-        if (label) {
-          if (t === tier) {
-            label.classList.add('border-emerald-500', 'bg-emerald-50/40', 'dark:bg-emerald-950/20');
-            label.classList.remove('border-slate-200', 'dark:border-slate-800');
-          } else {
-            label.classList.remove('border-emerald-500', 'bg-emerald-50/40', 'dark:bg-emerald-950/20');
-            label.classList.add('border-slate-200', 'dark:border-slate-800');
-          }
-        }
-      });
-
-      const btnText = document.getElementById('submitBtnText');
-      if (tier === 'invoice') {
-        btnText.innerText = "Lock Telemetry & Request Official Corporate Invoice";
-      } else {
-        const prices = { tier350: '$350 CAD', tier850: '$850 CAD', tier2250: '$2,250 CAD' };
-        btnText.innerText = `Lock Telemetry & Proceed to Stripe (${prices[tier]})`;
-      }
-    }
-
-    function scrollToVault() {
-      const vault = document.getElementById('vaultSection');
-      vault.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function setRole(role) {
-      currentRole = role;
-      const founderBtn = document.getElementById('role-founder');
-      const proxyBtn = document.getElementById('role-proxy');
-      if (role === 'founder') {
-        founderBtn.className = "px-3 py-1 rounded bg-white dark:bg-emerald-500/20 text-slate-900 dark:text-emerald-300 font-semibold shadow-sm border border-slate-200 dark:border-emerald-500/40";
-        proxyBtn.className = "px-3 py-1 rounded text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200";
-      } else {
-        proxyBtn.className = "px-3 py-1 rounded bg-white dark:bg-emerald-500/20 text-slate-900 dark:text-emerald-300 font-semibold shadow-sm border border-slate-200 dark:border-emerald-500/40";
-        founderBtn.className = "px-3 py-1 rounded text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200";
-      }
-    }
-
-    function updateSliders() {
-      const burnVal = document.getElementById('burnSlider').value;
-      const urgencyVal = document.getElementById('urgencySlider').value;
-
-      const burns = ["<$1k / mo", "$1k – $5k / mo", "$5k – $15k / mo", "Runaway >$15k / mo"];
-      const urgencies = ["Quarterly (90d)", "Standard (30d)", "Targeted (14d)", "Emergency (72h)"];
-
-      document.getElementById('burnValue').innerText = burns[burnVal];
-      document.getElementById('urgencyValue').innerText = urgencies[urgencyVal];
-
-      const rand = Math.random().toString(36).substring(2, 6).toUpperCase();
-      document.getElementById('telemetryHash').innerText = `VECTOR: #QNS-${rand}-READY`;
-    }
-
-    function copySlackMessage() {
-      const text = document.getElementById('slackMessageContent').innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const copyText = document.getElementById('copyText');
-        copyText.innerText = "✓ Copied to Slack!";
-        setTimeout(() => { copyText.innerText = "Copy Message"; }, 2500);
-      });
-    }
-
-    const dropZone = document.getElementById('dropZone');
-    ['dragenter', 'dragover'].forEach(name => {
-      dropZone.addEventListener(name, (e) => {
-        e.preventDefault();
-        dropZone.classList.add('border-emerald-500');
-      }, false);
-    });
-
-    ['dragleave', 'drop'].forEach(name => {
-      dropZone.addEventListener(name, (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('border-emerald-500');
-      }, false);
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-      handleFiles(e.dataTransfer.files);
-    });
-
-    function handleFileSelect(e) {
-      handleFiles(e.target.files);
-    }
-
-    function handleFiles(files) {
-      for (const file of files) {
-        if (!uploadedFiles.some(f => f.name === file.name && f.size === file.size)) {
-          uploadedFiles.push(file);
-        }
-      }
-      renderFileList();
-    }
-
-    function removeFile(index) {
-      uploadedFiles.splice(index, 1);
-      renderFileList();
-    }
-
-    function renderFileList() {
-      const list = document.getElementById('fileList');
-      list.innerHTML = '';
-      uploadedFiles.forEach((file, index) => {
-        const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
-        const item = document.createElement('div');
-        item.className = 'flex items-center justify-between bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 text-xs font-mono';
-        item.innerHTML = `
-          <div class="flex items-center gap-2 truncate">
-            <span class="text-emerald-500">📎</span>
-            <span class="text-slate-800 dark:text-slate-200 truncate">${file.name}</span>
-            <span class="text-slate-400 text-[10px]">(${sizeMb} MB)</span>
-          </div>
-          <button type="button" onclick="removeFile(${index})" class="text-slate-400 hover:text-rose-500 p-1">✕</button>
-        `;
-        list.appendChild(item);
-      });
-    }
-
-    // Submission & Direct Live Stripe Redirect
-    async function triggerSubmit() {
-      const email = document.getElementById('emailInput').value.trim();
-      const submitBtn = document.getElementById('vaultSubmitBtn');
-      const originalHtml = submitBtn.innerHTML;
-
-      if (!email) {
-        alert("Please provide an executive contact or invoicing email.");
-        document.getElementById('emailInput').focus();
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `<span>Transmitting Telemetry & Forwarding to Stripe...</span>`;
-
-      const formData = new FormData();
-      formData.append("telemetryHash", document.getElementById('telemetryHash').innerText);
-      formData.append("serviceTier", currentTier);
-      formData.append("role", currentRole);
-      formData.append("monthlyDrain", document.getElementById('burnValue').innerText);
-      formData.append("resolutionHorizon", document.getElementById('urgencyValue').innerText);
-      formData.append("selectedFrictionPoints", Array.from(selectedChips).join(' | ') || "None");
-      formData.append("targetOutcomes", Array.from(selectedOutcomes).join(' | ') || "None");
-      formData.append("repoOrDocLink", document.getElementById('repoInput').value.trim() || "None");
-      formData.append("customNotes", document.getElementById('notesInput').value.trim() || "None");
-      formData.append("email", email);
-
-      uploadedFiles.forEach(file => {
-        formData.append("attachments", file, file.name);
-      });
-
-      try {
-        const response = await fetch(FORMSPREE_ENDPOINT, {
-          method: "POST",
-          headers: { "Accept": "application/json" },
-          body: formData
-        });
-
-        if (response.ok) {
-          // Check if Stripe redirect or Net-30 invoice
-          if (currentTier === 'invoice') {
-            alert(`✓ Telemetry Logged under MNDA (#QNS)!\nAn official Net-30 corporate invoice will be dispatched to ${email}.`);
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalHtml;
-          } else {
-            const redirectUrl = STRIPE_LINKS[currentTier];
-            if (redirectUrl) {
-              window.location.href = redirectUrl;
-            }
-          }
-        } else {
-          const errData = await response.json();
-          alert("Submission issue: " + (errData.errors ? errData.errors.map(e => e.message).join(", ") : "Please check fields."));
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalHtml;
-        }
-      } catch (err) {
-        alert("Network error: " + err.message);
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalHtml;
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', init);
-  </script>
-</body>
-</html>
