@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IC Root Solutions — Architectural Diagnostics & Teardowns</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0B0F17;
+      --card-bg: #151D2C;
+      --card-border: rgba(212, 165, 116, 0.2);
+      --accent-gold: #D4A574;
+      --accent-terracotta: #E2725B;
+      --accent-blue: #38BDF8;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      padding: 24px 16px 60px;
+      line-height: 1.5;
+    }
+    .container { max-width: 680px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 32px; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: var(--text-main); margin-bottom: 6px; }
+    .tagline { color: var(--accent-gold); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+    .intro { color: var(--text-muted); font-size: 14px; margin-top: 10px; }
+    
+    .gate {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .gate-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--accent-gold);
+    }
+    .grid-3x3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .chips-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    
+    button.tile, button.chip {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-main);
+      padding: 12px 8px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    button.chip { padding: 8px 14px; font-size: 12px; border-radius: 20px; }
+    button.active {
+      background: var(--accent-terracotta) !important;
+      border-color: var(--accent-gold) !important;
+      color: #fff !important;
+      font-weight: 600;
+    }
+    
+    input[type="text"], textarea, select {
+      width: 100%;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-top: 8px;
+      font-family: inherit;
+    }
+    textarea { resize: vertical; min-height: 90px; }
+    .checkbox-row { display: flex; align-items: flex-start; gap: 10px; margin-top: 14px; font-size: 13px; color: var(--text-muted); }
+    .checkbox-row input { margin-top: 3px; }
+    
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent-terracotta) 0%, var(--accent-gold) 100%);
+      color: #000;
+      border: none;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .hash-display {
+      margin-top: 14px;
+      font-family: monospace;
+      font-size: 12px;
+      text-align: center;
+      color: var(--accent-blue);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="tagline">IC Root Solutions</div>
+      <h1>Architectural Diagnostic Grid</h1>
+      <p class="intro">100% Asynchronous Written Teardowns • 48-Hour SLA • Zero Meetings</p>
+    </header>
+
+    <!-- Gate 1: 3x3 Door -->
+    <div class="gate">
+      <div class="gate-title"><span>Gate 1: Primary Pain Door</span><small>Select 1</small></div>
+      <div class="grid-3x3" id="gate1">
+        <button class="tile" onclick="selectGate1(this, 'AI-DRIFT')">AI & Model Drift</button>
+        <button class="tile" onclick="selectGate1(this, 'TOKEN-BLEED')">Cloud & Token Bleed</button>
+        <button class="tile" onclick="selectGate1(this, 'ARCH-BOTTLENECK')">Architecture Bottleneck</button>
+        <button class="tile" onclick="selectGate1(this, 'LEGACY-DRAG')">Legacy Tech Drag</button>
+        <button class="tile" onclick="selectGate1(this, 'LATENCY-SCALE')">Latency & Scaling</button>
+        <button class="tile" onclick="selectGate1(this, 'SECURITY')">Security & Compliance</button>
+        <button class="tile" onclick="selectGate1(this, 'GRIDLOCK')">Execution Gridlock</button>
+        <button class="tile" onclick="selectGate1(this, 'BURNOUT')">Team Burnout</button>
+        <button class="tile" onclick="selectGate1(this, 'VENDOR-LOCK')">Vendor Lock-in</button>
+      </div>
+    </div>
+
+    <!-- Gate 2: Stage of Failure -->
+    <div class="gate">
+      <div class="gate-title"><span>Gate 2: Stage of Failure</span><small>Select 1</small></div>
+      <div class="grid-3" id="gate2">
+        <button class="tile" onclick="selectGate2(this, 'CONCEPT')">Concept & Design</button>
+        <button class="tile" onclick="selectGate2(this, 'BROKEN')">Active / Broken</button>
+        <button class="tile" onclick="selectGate2(this, 'SCALING')">Scaling / Costly</button>
+      </div>
+    </div>
+
+    <!-- Gate 3: Target Metric -->
+    <div class="gate">
+      <div class="gate-title"><span>Gate 3: Target Metric</span><small>Select 1</small></div>
+      <div class="grid-3" id="gate3">
+        <button class="tile" onclick="selectGate3(this, 'SLASH-COST')">Slash Cost & Tokens</button>
+        <button class="tile" onclick="selectGate3(this, 'VELOCITY')">Unblock Velocity</button>
+        <button class="tile" onclick="selectGate3(this, 'STABILIZE')">Stabilize Stack</button>
+      </div>
+    </div>
+
+    <!-- Gate 4: 5-Word Vector Chips -->
+    <div class="gate">
+      <div class="gate-title"><span>Gate 4: Core Friction Vectors</span><small id="chipCounter">Select up to 5 (0/5)</small></div>
+      <div class="chips-grid" id="gate4">
+        <button class="chip" onclick="toggleChip(this, 'TIM')">Timing</button>
+        <button class="chip" onclick="toggleChip(this, 'CST')">Cost</button>
+        <button class="chip" onclick="toggleChip(this, 'FEA')">Feasibility</button>
+        <button class="chip" onclick="toggleChip(this, 'RSK')">Risk</button>
+        <button class="chip" onclick="toggleChip(this, 'LAT')">Latency</button>
+        <button class="chip" onclick="toggleChip(this, 'BRN')">Burnout</button>
+        <button class="chip" onclick="toggleChip(this, 'INR')">Inertia</button>
+        <button class="chip" onclick="toggleChip(this, 'SCL')">Scale</button>
+        <button class="chip" onclick="toggleChip(this, 'GOV')">Governance</button>
+        <button class="chip" onclick="toggleChip(this, 'DIS')">Distrust</button>
+        <button class="chip" onclick="toggleChip(this, 'EXE')">Execution</button>
+        <button class="chip" onclick="toggleChip(this, 'CMP')">Compliance</button>
+        <button class="chip" onclick="toggleChip(this, 'QLT')">Quality</button>
+        <button class="chip" onclick="toggleChip(this, 'POL')">Politics</button>
+        <button class="chip" onclick="toggleChip(this, 'OVH')">Overhead</button>
+      </div>
+    </div>
+
+    <!-- Gate 5: Scope & Delivery -->
+    <div class="gate">
+      <div class="gate-title"><span>Gate 5: Scope & Delivery</span></div>
+      
+      <label style="font-size:13px; color:var(--text-muted);">The Terminal "Garble Box" (Unstructured context, logs, or raw notes):</label>
+      <textarea id="garbleBox" placeholder="Dump raw thoughts, error codes, stack details, or frustration here..."></textarea>
+
+      <label style="font-size:13px; color:var(--text-muted); margin-top:12px; display:block;">Select Engagement Tier:</label>
+      <select id="tierSelect">
+        <option value="single">Single Diagnostic Memo ($350 CAD — 48-72h SLA)</option>
+        <option value="silver">Silver Retainer ($850 CAD/mo — 3 queries, 48h SLA)</option>
+        <option value="gold">Gold Retainer ($2,250 CAD/mo — 8 queries, 24h Priority SLA)</option>
+      </select>
+
+      <label style="font-size:13px; color:var(--text-muted); margin-top:12px; display:block;">Your Email or LinkedIn URL:</label>
+      <input type="text" id="clientIdentity" placeholder="name@company.com or linkedin.com/in/..." required />
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="policyAgreement" required />
+        <label for="policyAgreement">I agree to the 100% written review and zero phone/video call policy.</label>
+      </div>
+
+      <button class="btn-submit" onclick="submitGrid()">Proceed to Secure Stripe Teardown →</button>
+      <div class="hash-display" id="hashDisplay">Telemetry Hash: #QNS-PENDING</div>
+    </div>
+  </div>
+
+  <script>
+    let g1 = "AI-DRIFT", g2 = "BROKEN", g3 = "VELOCITY";
+    let selectedChips = [];
+
+    // Replace with your Stripe Payment Link URLs
+    const STRIPE_LINKS = {
+      single: "https://buy.stripe.com/REPLACE_WITH_SINGLE_350_LINK",
+      silver: "https://buy.stripe.com/REPLACE_WITH_SILVER_850_LINK",
+      gold:   "https://buy.stripe.com/REPLACE_WITH_GOLD_2250_LINK"
+    };
+
+    function selectGate1(btn, val) {
+      document.querySelectorAll('#gate1 button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      g1 = val;
+      updateHash();
+    }
+    function selectGate2(btn, val) {
+      document.querySelectorAll('#gate2 button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      g2 = val;
+      updateHash();
+    }
+    function selectGate3(btn, val) {
+      document.querySelectorAll('#gate3 button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      g3 = val;
+      updateHash();
+    }
+    function toggleChip(btn, val) {
+      if (selectedChips.includes(val)) {
+        selectedChips = selectedChips.filter(c => c !== val);
+        btn.classList.remove('active');
+      } else {
+        if (selectedChips.length >= 5) return;
+        selectedChips.push(val);
+        btn.classList.add('active');
+      }
+      document.getElementById('chipCounter').innerText = `Select up to 5 (${selectedChips.length}/5)`;
+      updateHash();
+    }
+
+    function generateHash() {
+      const chipsStr = selectedChips.length > 0 ? `[${selectedChips.join('')}]` : '[NONE]';
+      const randHex = Math.random().toString(16).substring(2, 6).toUpperCase();
+      return `#QNS-${g1.substring(0,3)}-${g2.substring(0,2)}-${g3.substring(0,2)}-${chipsStr}-${randHex}`;
+    }
+
+    function updateHash() {
+      document.getElementById('hashDisplay').innerText = `Telemetry Hash: ${generateHash()}`;
+    }
+
+    function submitGrid() {
+      const email = document.getElementById('clientIdentity').value.trim();
+      const agreed = document.getElementById('policyAgreement').checked;
+      if (!email) { alert('Please enter your email or LinkedIn URL.'); return; }
+      if (!agreed) { alert('Please acknowledge the 100% written review policy.'); return; }
+
+      const hash = generateHash();
+      const tier = document.getElementById('tierSelect').value;
+      const targetUrl = STRIPE_LINKS[tier] || STRIPE_LINKS.single;
+
+      window.location.href = `${targetUrl}?client_reference_id=${encodeURIComponent(hash)}&prefilled_email=${encodeURIComponent(email)}`;
+    }
+  </script>
+</body>
+</html>
