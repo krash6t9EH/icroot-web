@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -32,8 +32,8 @@
     
     .qns-panel {
       background: var(--qns-card);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--qns-border);
     }
     .qns-panel-elevated {
@@ -76,7 +76,7 @@
       box-shadow: 0 0 18px #F59E0B, 0 0 30px #22D3EE;
     }
     
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #0B1120; }
     ::-webkit-scrollbar-thumb { background: #243452; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #334970; }
@@ -88,22 +88,17 @@
     .modal-animate {
       animation: modalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-    .pulse-glow { animation: pulseGlow 2s infinite ease-in-out; }
   </style>
 </head>
-<body class="min-h-screen w-screen flex flex-col overflow-x-hidden selection:bg-cyan-500 selection:text-black">
+<body class="h-full w-screen flex flex-col overflow-hidden selection:bg-cyan-500 selection:text-black">
 
-  <!-- 1. TOP DOCKED CONTROL BAR -->
-  <header class="sticky top-0 h-16 px-4 md:px-8 border-b border-white/15 bg-[#0B1120]/95 backdrop-blur-md flex items-center justify-between shrink-0 z-50">
-    <div class="flex items-center gap-4">
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-500 to-amber-400 p-[2px] shadow-[0_0_20px_rgba(6,182,212,0.45)] flex items-center justify-center shrink-0">
-        <div class="w-full h-full bg-[#0B1120] rounded-[10px] flex items-center justify-center">
-          <svg class="w-5 h-5 text-cyan-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 1. SLIM TOP DOCKED CONTROL BAR (54px) -->
+  <header class="h-14 px-4 md:px-6 border-b border-white/15 bg-[#0B1120]/95 backdrop-blur-md flex items-center justify-between shrink-0 z-50">
+    <div class="flex items-center gap-3.5">
+      <!-- Icon -->
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 via-blue-500 to-amber-400 p-[1.5px] shadow-[0_0_15px_rgba(6,182,212,0.45)] flex items-center justify-center shrink-0">
+        <div class="w-full h-full bg-[#0B1120] rounded-[6.5px] flex items-center justify-center">
+          <svg class="w-4 h-4 text-cyan-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 2a5 5 0 0 1 5 5c0 1.5-.6 2.8-1.5 3.7.8.4 1.5 1 2 1.8 1.4 2 1.5 4.5 1.5 7.5H5c0-3 .1-5.5 1.5-7.5.5-.8 1.2-1.4 2-1.8A5 5 0 0 1 12 2z"/>
             <path d="M9.5 8.5a2.5 2.5 0 0 1 5 0"/>
             <circle cx="12" cy="15" r="1.5" fill="#22D3EE"/>
@@ -112,440 +107,429 @@
         </div>
       </div>
 
+      <!-- Title & Telemetry Vector -->
       <div class="flex flex-col">
         <div class="flex items-center gap-2">
-          <span class="font-heading font-bold text-sm uppercase tracking-wider text-white">
-            IC ROOT <span class="text-cyan-400 font-normal">// DIAGNOSTIC COCKPIT</span>
+          <span class="font-heading font-bold text-xs md:text-sm uppercase tracking-wider text-white">
+            IC ROOT <span class="text-cyan-400 font-normal">// COCKPIT</span>
           </span>
-          <span class="hidden sm:inline text-[10px] font-mono font-bold bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/40">2026 EDITION</span>
+          <span class="hidden sm:inline text-[9px] font-mono font-bold bg-cyan-950 text-cyan-300 px-1.5 py-0.2 rounded border border-cyan-500/40">2026 EDITION</span>
         </div>
-        <div class="text-xs font-mono text-slate-300 flex items-center gap-2">
-          <span class="text-slate-400">VECTOR:</span>
-          <span id="telemetryHash" class="text-cyan-300 font-bold tracking-tight text-glow-cyan">#QNS-EXEC-ECONOMICS-BLEED-READY</span>
+        <div class="text-[11px] font-mono text-slate-300 flex items-center gap-1.5">
+          <span class="text-slate-400 hidden sm:inline">VECTOR:</span>
+          <span id="telemetryHash" class="text-cyan-300 font-bold tracking-tight text-glow-cyan text-[11px]">#QNS-EXEC-ECONOMICS-BLEED-READY</span>
         </div>
       </div>
     </div>
 
-    <div class="flex items-center gap-3">
+    <!-- Center / Right Top Controls -->
+    <div class="flex items-center gap-2 md:gap-3">
+      <!-- Mobile Sidebar Drawer Toggle -->
+      <button onclick="toggleMobileSidebar()" class="lg:hidden px-3 py-1.5 bg-[#111A2E] text-slate-200 hover:text-white rounded-lg border border-white/15 text-xs font-mono flex items-center gap-1.5">
+        <span>☰</span>
+        <span id="mobileSidebarBtnText">Modules (9)</span>
+      </button>
+
       <!-- Role Switcher -->
       <div class="bg-[#111A2E] p-1 rounded-xl border border-white/15 flex text-xs font-medium">
-        <button id="roleExecBtn" onclick="setRole('exec')" class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-md transition-all">
+        <button id="roleExecBtn" onclick="setRole('exec')" class="px-3 py-1 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-md transition-all text-xs">
           Founder / CTO
         </button>
-        <button id="roleProxyBtn" onclick="setRole('proxy')" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition-all">
+        <button id="roleProxyBtn" onclick="setRole('proxy')" class="px-3 py-1 rounded-lg text-slate-300 hover:text-white transition-all text-xs">
           Assistant / Proxy
         </button>
       </div>
 
-      <button onclick="scrollToVault()" class="hidden sm:flex px-4 py-2 bg-prismatic hover:brightness-110 text-white text-xs font-bold rounded-xl shadow-lg glow-quantum transition-all active:scale-95 items-center gap-2">
-        <span>Transmit Vault</span>
-        <span class="text-cyan-100 font-bold">→</span>
+      <!-- Quick Help & Zero-Meeting Banner -->
+      <button onclick="toggleHelpGuide()" class="hidden md:flex text-xs font-mono text-cyan-300 hover:text-cyan-200 items-center gap-1 bg-[#0F182A] px-2.5 py-1 rounded-lg border border-cyan-500/40 transition">
+        <span>ℹ️ Guide</span>
+      </button>
+
+      <!-- Transmit Vault Button -->
+      <button onclick="scrollToVault()" class="px-3.5 py-1.5 bg-prismatic hover:brightness-110 text-white text-xs font-bold rounded-xl shadow-lg glow-quantum transition-all active:scale-95 flex items-center gap-1.5">
+        <span class="hidden sm:inline">Transmit</span>
+        <span>Briefing →</span>
       </button>
     </div>
   </header>
 
-  <!-- 2. GUIDED WALKTHROUGH STRIP & HELP BANNER -->
-  <div class="bg-gradient-to-r from-[#0C1527] via-[#16233B] to-[#0C1527] px-4 md:px-8 py-3 border-b border-white/15 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs shrink-0">
-    <div class="flex items-center gap-2.5 text-slate-200">
-      <span class="text-amber-400 text-base">🛡️</span>
-      <span id="safetyText">
-        <strong class="text-white font-semibold">Zero-Judgment Diagnostic:</strong> No meetings, no pitch decks, no sales pressure. 100% written engineering & business teardown.
-      </span>
-    </div>
-    
-    <div class="flex items-center gap-3">
-      <button onclick="toggleHelpGuide()" class="text-xs font-mono font-medium text-cyan-300 hover:text-cyan-200 flex items-center gap-1.5 bg-[#0B1120] px-3 py-1 rounded-lg border border-cyan-500/40 hover:border-cyan-400 transition">
-        <span>ℹ️ How Teardown Works</span>
-        <span id="helpChevron">▾</span>
-      </button>
-      <span class="text-[11px] font-mono text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded border border-white/10 hidden lg:inline">
-        Zero AI Model Training Guarantee (Saskatchewan Law)
-      </span>
-    </div>
-  </div>
-
-  <!-- COLLAPSIBLE HOW IT WORKS GUIDE -->
-  <div id="helpGuidePanel" class="hidden bg-[#0F182A] border-b border-cyan-500/30 px-4 md:px-8 py-5 transition-all">
-    <div class="max-w-5xl mx-auto space-y-4">
+  <!-- COLLAPSIBLE GUIDE PANEL OVERLAY -->
+  <div id="helpGuidePanel" class="hidden fixed inset-x-0 top-14 bg-[#0F182A]/98 backdrop-blur-xl border-b border-cyan-500/40 p-5 z-40 shadow-2xl transition-all">
+    <div class="max-w-5xl mx-auto space-y-3">
       <div class="flex items-center justify-between">
         <h3 class="font-heading text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-          <span>🚀 Rapid Guide: Navigating Your Asynchronous Teardown</span>
+          <span>🚀 Asynchronous Teardown Architecture (Zero Meetings Guarantee)</span>
         </h3>
-        <button onclick="toggleHelpGuide()" class="text-slate-400 hover:text-white text-sm">✕ Close</button>
+        <button onclick="toggleHelpGuide()" class="text-slate-400 hover:text-white text-sm font-mono">✕ Close</button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
-        <div class="p-3.5 bg-[#162238] rounded-xl border border-white/10 space-y-1.5">
-          <div class="font-mono text-cyan-400 font-bold flex items-center gap-1.5">
-            <span class="w-5 h-5 rounded-full bg-cyan-950 border border-cyan-400 flex items-center justify-center text-[10px]">1</span>
-            Select Your Lens
-          </div>
-          <p class="text-slate-300 leading-relaxed">
-            Switch between <strong class="text-white">Founder/CTO</strong> for deep technical terms or <strong class="text-white">Assistant/Proxy</strong> for plain-English symptoms and pre-written Slack approval snippets.
-          </p>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
+        <div class="p-3 bg-[#162238] rounded-xl border border-white/10 space-y-1">
+          <div class="font-mono text-cyan-400 font-bold">1. Sidebar Navigation</div>
+          <p class="text-slate-300">Select any of the 9 Business or Technical modules from the left sidebar to load its diagnostic canvas.</p>
         </div>
-
-        <div class="p-3.5 bg-[#162238] rounded-xl border border-white/10 space-y-1.5">
-          <div class="font-mono text-cyan-400 font-bold flex items-center gap-1.5">
-            <span class="w-5 h-5 rounded-full bg-cyan-950 border border-cyan-400 flex items-center justify-center text-[10px]">2</span>
-            Tag Friction Points
-          </div>
-          <p class="text-slate-300 leading-relaxed">
-            Filter by <strong class="text-white">Business</strong> or <strong class="text-white">Technical</strong> domains. Tap observed symptoms. The tag counter and telemetry hash update in real time.
-          </p>
+        <div class="p-3 bg-[#162238] rounded-xl border border-white/10 space-y-1">
+          <div class="font-mono text-cyan-400 font-bold">2. Tag Symptoms</div>
+          <p class="text-slate-300">Tap observed friction chips. Tags immediately light up in vibrant color and populate your live telemetry vector.</p>
         </div>
-
-        <div class="p-3.5 bg-[#162238] rounded-xl border border-white/10 space-y-1.5">
-          <div class="font-mono text-cyan-400 font-bold flex items-center gap-1.5">
-            <span class="w-5 h-5 rounded-full bg-cyan-950 border border-cyan-400 flex items-center justify-center text-[10px]">3</span>
-            Define Burn & Victory
-          </div>
-          <p class="text-slate-300 leading-relaxed">
-            Slide estimated monthly drain and urgency horizon. Select what outcome constitutes victory for your company on Monday morning.
-          </p>
+        <div class="p-3 bg-[#162238] rounded-xl border border-white/10 space-y-1">
+          <div class="font-mono text-cyan-400 font-bold">3. Quantify Bleed</div>
+          <p class="text-slate-300">Drag the tactile sliders for Monthly Drain and Urgency Horizon to pinpoint your triage priority.</p>
         </div>
-
-        <div class="p-3.5 bg-[#162238] rounded-xl border border-white/10 space-y-1.5">
-          <div class="font-mono text-cyan-400 font-bold flex items-center gap-1.5">
-            <span class="w-5 h-5 rounded-full bg-cyan-950 border border-cyan-400 flex items-center justify-center text-[10px]">4</span>
-            Lock Telemetry & Transmit
-          </div>
-          <p class="text-slate-300 leading-relaxed">
-            Drop your repo link or raw notes in the sandboxed Briefing Vault. Pay via Stripe (CAD) under automatic MNDA protection. Receive your written teardown memo asynchronously.
-          </p>
+        <div class="p-3 bg-[#162238] rounded-xl border border-white/10 space-y-1">
+          <div class="font-mono text-cyan-400 font-bold">4. Zero-Meeting SLA</div>
+          <p class="text-slate-300">Submit repo links or raw notes via the Briefing Vault. Settle via Stripe CAD under statutory Saskatchewan MNDA.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 3. TOP HUD: DOMAIN FILTER & CATEGORY MATRIX -->
-  <section class="sticky top-16 p-3 md:p-4 bg-[#0B1120]/95 backdrop-blur-md border-b border-white/15 shrink-0 z-40">
-    <div class="max-w-5xl mx-auto space-y-3">
-      <!-- Domain Filter Tabs -->
-      <div class="flex items-center justify-between flex-wrap gap-2 text-xs">
-        <div class="flex items-center gap-1.5 bg-[#111A2E] p-1 rounded-xl border border-white/10">
-          <button onclick="setDomainFilter('all')" id="domainAllBtn" class="px-3 py-1 rounded-lg bg-cyan-500 text-black font-extrabold shadow transition">
-            All Domains (9)
-          </button>
-          <button onclick="setDomainFilter('business')" id="domainBizBtn" class="px-3 py-1 rounded-lg text-slate-300 hover:text-white transition">
-            💼 Business & Operations (5)
-          </button>
-          <button onclick="setDomainFilter('tech')" id="domainTechBtn" class="px-3 py-1 rounded-lg text-slate-300 hover:text-white transition">
-            ⚙️ Tech & Infrastructure (4)
-          </button>
+  <!-- 2. PRO COCKPIT 2-COLUMN WORKSPACE (FULL VIEWPORT) -->
+  <div class="flex-1 flex overflow-hidden relative">
+
+    <!-- LEFT SIDEBAR: CATEGORIES & DOMAINS (W-80 Desktop, Slide-over Mobile) -->
+    <aside id="sidebarPanel" class="w-80 lg:w-84 bg-[#0E1526] border-r border-white/15 flex flex-col shrink-0 z-30 transition-all duration-200 
+      fixed lg:static inset-y-0 left-0 -translate-x-full lg:translate-x-0 pt-14 lg:pt-0">
+      
+      <!-- Sidebar Header & Domain Tabs -->
+      <div class="p-3.5 border-b border-white/10 bg-[#0B1120] space-y-2.5 shrink-0">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-mono uppercase text-slate-400 font-bold tracking-wider text-[11px]">Diagnostic Modules</span>
+          <span id="activeTagsPillCount" class="font-mono font-bold text-cyan-300 bg-cyan-950 px-2 py-0.5 rounded border border-cyan-500/40 text-[10px]">
+            0 Added
+          </span>
         </div>
 
-        <div class="text-xs font-mono text-slate-300 flex items-center gap-2">
-          <span>Active Tags:</span>
-          <span id="activeTagsPillCount" class="font-bold text-cyan-300 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-400/40">0 Added</span>
+        <!-- Domain Filter Tabs -->
+        <div class="grid grid-cols-3 gap-1 bg-[#141E33] p-1 rounded-xl border border-white/10 text-[11px] font-medium">
+          <button onclick="setDomainFilter('all')" id="domainAllBtn" class="py-1 px-1 rounded-lg bg-cyan-500 text-black font-extrabold shadow text-center transition">
+            All (9)
+          </button>
+          <button onclick="setDomainFilter('business')" id="domainBizBtn" class="py-1 px-1 rounded-lg text-slate-300 hover:text-white text-center transition">
+            Business (5)
+          </button>
+          <button onclick="setDomainFilter('tech')" id="domainTechBtn" class="py-1 px-1 rounded-lg text-slate-300 hover:text-white text-center transition">
+            Tech (4)
+          </button>
         </div>
       </div>
 
-      <!-- Categories Matrix Grid -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2" id="categoryMatrix"></div>
-
-      <!-- Real-Time Selected Tags Drawer / Tray -->
-      <div id="activeTagsTray" class="hidden pt-2 border-t border-white/10 flex flex-wrap items-center gap-2">
-        <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-bold">Selected Tags:</span>
-        <div id="activeTagsList" class="flex flex-wrap items-center gap-1.5"></div>
-        <button onclick="clearAllTags()" class="text-[11px] font-mono text-rose-400 hover:text-rose-300 ml-auto underline cursor-pointer">
-          Clear All
-        </button>
+      <!-- Categories Scrollable List (Full Vertical Height) -->
+      <div class="flex-1 overflow-y-auto p-2.5 space-y-1.5" id="categoryMatrix">
+        <!-- Rendered via JS -->
       </div>
-    </div>
-  </section>
 
-  <!-- 4. LOWER INTERACTIVE DYNAMIC CANVAS -->
-  <main class="flex-1 p-4 md:p-6 max-w-4xl mx-auto w-full space-y-6 pb-28">
+      <!-- Sidebar Footer: Active Tags & Clear All Drawer -->
+      <div id="sidebarActiveTagsBox" class="p-3 border-t border-white/10 bg-[#0A0F1D] shrink-0 space-y-2 hidden">
+        <div class="flex items-center justify-between text-[11px] font-mono">
+          <span class="text-slate-400 uppercase font-bold">Active Tags (<span id="sidebarActiveCount">0</span>)</span>
+          <button onclick="clearAllTags()" class="text-rose-400 hover:text-rose-300 underline cursor-pointer">Clear All</button>
+        </div>
+        <div id="sidebarActiveTagsList" class="flex flex-wrap gap-1 max-h-24 overflow-y-auto pr-1"></div>
+      </div>
+    </aside>
 
-    <!-- Active Category Header Card -->
-    <div class="qns-panel p-5 md:p-6 rounded-2xl border border-white/15 space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-3">
-            <span id="activeCatIcon" class="text-2xl">💰</span>
+    <!-- MOBILE BACKDROP OVERLAY -->
+    <div id="mobileBackdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-20 hidden lg:hidden"></div>
+
+    <!-- RIGHT MAIN WORKSPACE CANVAS (FULL VERTICAL & HORIZONTAL BREATHING ROOM) -->
+    <main class="flex-1 overflow-y-auto flex flex-col justify-between bg-[#0B1120]">
+      
+      <div class="p-4 md:p-8 max-w-5xl mx-auto w-full space-y-6 pb-24">
+
+        <!-- 1. ACTIVE CATEGORY HERO CARD -->
+        <div class="qns-panel p-5 md:p-6 rounded-2xl border border-white/15 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
             <div>
-              <h1 id="activeCatTitle" class="text-xl md:text-2xl font-heading font-extrabold text-white tracking-tight">
-                Unit Economics & Cash Burn
-              </h1>
-              <span id="activeCatSub" class="text-xs font-mono text-cyan-300 font-semibold tracking-wide">
-                // Runway & Margins
+              <div class="flex items-center gap-3">
+                <span id="activeCatIcon" class="text-3xl">💰</span>
+                <div>
+                  <h1 id="activeCatTitle" class="text-xl md:text-2xl font-heading font-extrabold text-white tracking-tight">
+                    Unit Economics & Cash Burn
+                  </h1>
+                  <span id="activeCatSub" class="text-xs font-mono text-cyan-300 font-semibold tracking-wide">
+                    // Runway & Margins
+                  </span>
+                </div>
+              </div>
+              <p id="activeCatDesc" class="text-sm text-slate-200 mt-2 leading-relaxed">
+                Why you're here: High top-line gross revenue but cash is silently draining, SaaS licenses are unmonitored, or pricing models erode margins.
+              </p>
+            </div>
+
+            <!-- Pain Level Switcher -->
+            <div class="flex items-center gap-1 bg-[#0F182A] p-1.5 rounded-xl border border-white/15 text-xs shrink-0 self-start">
+              <button onclick="setPain('drag')" id="painDrag" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-amber-300 font-medium transition flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Drag
+              </button>
+              <button onclick="setPain('bleed')" id="painBleed" class="px-3 py-1.5 rounded-lg bg-orange-500/30 text-orange-200 font-bold border border-orange-400/70 shadow-[0_0_12px_rgba(251,146,60,0.35)] flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-orange-400"></span> Bleed
+              </button>
+              <button onclick="setPain('defcon')" id="painDefcon" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-rose-400 font-medium transition flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> DEFCON 1
+              </button>
+            </div>
+          </div>
+
+          <!-- Persona Guidance Callout -->
+          <div id="personaGuidanceBox" class="p-3.5 rounded-xl bg-[#0F182A]/90 border border-cyan-500/30 text-xs text-slate-200 flex items-start gap-2.5">
+            <span class="text-cyan-400 text-sm mt-0.5">💡</span>
+            <div id="personaGuidanceText" class="leading-relaxed">
+              <strong class="text-cyan-300">Founder / CTO Lens:</strong> Pinpoint structural leaks and unit margin compression. Select symptoms below to compute remediation priority.
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. TACTILE IMPACT SLIDERS -->
+        <div class="grid md:grid-cols-2 gap-4 qns-panel p-5 rounded-2xl border border-white/15">
+          <div class="space-y-2.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-slate-300 font-semibold flex items-center gap-1.5">
+                <span>Estimated Monthly Drain</span>
+                <span class="text-[10px] text-slate-400 font-normal">(Cloud, SaaS, or Margin Leakage)</span>
+              </span>
+              <span id="burnValue" class="font-mono text-cyan-300 font-bold text-sm bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-500/40">
+                $5k – $15k / mo
               </span>
             </div>
-          </div>
-          <p id="activeCatDesc" class="text-sm text-slate-200 mt-2 leading-relaxed">
-            Why you're here: High top-line gross revenue but cash is silently draining, SaaS licenses are unmonitored, or pricing models erode margins.
-          </p>
-        </div>
-
-        <!-- Pain Level Switcher -->
-        <div class="flex items-center gap-1 bg-[#0F182A] p-1.5 rounded-xl border border-white/15 text-xs shrink-0 self-start">
-          <button onclick="setPain('drag')" id="painDrag" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-amber-300 font-medium transition flex items-center gap-1.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Drag
-          </button>
-          <button onclick="setPain('bleed')" id="painBleed" class="px-3 py-1.5 rounded-lg bg-orange-500/30 text-orange-200 font-bold border border-orange-400/60 shadow-[0_0_12px_rgba(251,146,60,0.35)] flex items-center gap-1.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-orange-400"></span> Bleed
-          </button>
-          <button onclick="setPain('defcon')" id="painDefcon" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-rose-400 font-medium transition flex items-center gap-1.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> DEFCON 1
-          </button>
-        </div>
-      </div>
-
-      <!-- Persona Guidance Callout -->
-      <div id="personaGuidanceBox" class="p-3.5 rounded-xl bg-[#0F182A]/90 border border-cyan-500/30 text-xs text-slate-200 flex items-start gap-2.5">
-        <span class="text-cyan-400 text-sm mt-0.5">💡</span>
-        <div id="personaGuidanceText" class="leading-relaxed">
-          <strong class="text-cyan-300">Founder / CTO Lens:</strong> Pinpoint structural leaks and unit margin compression. Select symptoms below to compute remediation priority.
-        </div>
-      </div>
-    </div>
-
-    <!-- Tactile Impact Sliders -->
-    <div class="grid md:grid-cols-2 gap-4 qns-panel p-5 rounded-2xl border border-white/15">
-      <div class="space-y-2.5">
-        <div class="flex justify-between items-center text-xs">
-          <span class="text-slate-300 font-semibold flex items-center gap-1.5">
-            <span>Estimated Monthly Drain</span>
-            <span class="text-[10px] text-slate-400 font-normal">(Cloud, SaaS, or Margin Leakage)</span>
-          </span>
-          <span id="burnValue" class="font-mono text-cyan-300 font-bold text-sm bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-500/40">
-            $5k – $15k / mo
-          </span>
-        </div>
-        <input type="range" min="1" max="4" value="2" id="burnSlider" oninput="updateSliders()" class="w-full">
-        <div class="flex justify-between text-xs font-mono text-slate-400 font-medium px-1">
-          <span>&lt;$5k</span><span>$10k–$25k</span><span>$25k–$75k</span><span class="text-rose-400 font-bold">Runaway</span>
-        </div>
-      </div>
-
-      <div class="space-y-2.5">
-        <div class="flex justify-between items-center text-xs">
-          <span class="text-slate-300 font-semibold flex items-center gap-1.5">
-            <span>Resolution Horizon</span>
-            <span class="text-[10px] text-slate-400 font-normal">(Target SLA)</span>
-          </span>
-          <span id="urgencyValue" class="font-mono text-amber-300 font-bold text-sm bg-amber-950/80 px-2 py-0.5 rounded border border-amber-500/40">
-            14 Days
-          </span>
-        </div>
-        <input type="range" min="1" max="4" value="2" id="urgencySlider" oninput="updateSliders()" class="w-full">
-        <div class="flex justify-between text-xs font-mono text-slate-400 font-medium px-1">
-          <span>Quarter</span><span>30 Days</span><span>14 Days</span><span class="text-rose-400 font-bold">Emergency</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Observed Symptoms Chips (Friction Points) -->
-    <div class="space-y-3">
-      <div class="flex justify-between items-center">
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-200">
-            Observed Friction Points (Tap all that apply)
-          </span>
-          <span id="categorySelectedCountBadge" class="text-[10px] font-mono font-bold text-cyan-300 bg-cyan-950 px-2 py-0.5 rounded-full border border-cyan-500/40">
-            0 Selected
-          </span>
-        </div>
-        <span class="text-xs text-slate-400 font-mono">Rough estimates are 100% fine</span>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="chipsContainer"></div>
-    </div>
-
-    <!-- Target Goal & Outcome Mandate -->
-    <div class="qns-panel p-5 rounded-2xl border border-white/15 space-y-3.5">
-      <div class="flex items-center justify-between">
-        <div class="text-xs font-bold uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-amber-400 flex items-center gap-2">
-          <span>🎯 Target Outcome Mandate</span>
-          <span class="text-slate-400 text-xs font-normal">(What does victory look like on Monday?)</span>
-        </div>
-        <span class="text-[11px] font-mono text-slate-400">Select desired remediation</span>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs" id="outcomeContainer"></div>
-    </div>
-
-    <!-- Assistant Recon Slack Helper (Shown in Proxy mode) -->
-    <div id="assistantBox" class="hidden qns-panel border-cyan-500/40 bg-gradient-to-br from-cyan-950/30 via-slate-900 to-amber-950/20 p-5 rounded-2xl space-y-3">
-      <div class="flex items-center justify-between">
-        <span class="text-xs font-bold text-cyan-200 flex items-center gap-2">
-          <span class="text-amber-400 text-sm">💬</span>
-          <span>The 3 Numbers for Your Boss / CEO</span>
-          <span class="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full border border-cyan-500/40 font-mono">
-            One-Click Slack Copy
-          </span>
-        </span>
-        <button onclick="copySlackMsg()" class="text-xs text-slate-200 hover:text-white flex items-center gap-1.5 bg-[#0B1120] px-3.5 py-1.5 rounded-lg border border-cyan-400/50 hover:border-cyan-300 transition shadow">
-          <span id="copyFeedback">📋 Copy Message</span>
-        </button>
-      </div>
-      <p class="text-xs text-slate-200 font-mono bg-[#070B14]/90 p-4 rounded-xl border border-white/10 leading-relaxed">
-        "Setting up our async teardown with IC Root now. Just need 3 numbers to hit send: 1) Are we authorizing the $350 triage, $850 audit, or $2,250 deep dive? 2) Hard deadline? 3) Best email for the receipt?"
-      </p>
-    </div>
-
-    <!-- Custom Friction Input -->
-    <div>
-      <input type="text" id="customInput" placeholder="+ Add specific unlisted friction, custom metric, or acute bottleneck..." 
-        class="w-full bg-[#111A2E] border border-dashed border-slate-600 hover:border-cyan-400 focus:border-cyan-400 focus:outline-none rounded-xl px-4 py-3.5 text-xs text-white placeholder-slate-400 transition-all font-mono">
-    </div>
-
-    <!-- 5. BRIEFING VAULT & STRIPE CHECKOUT SECTION -->
-    <div id="briefingVault" class="qns-panel p-6 md:p-8 rounded-2xl space-y-6 border border-white/20 mt-10">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/15 pb-4 gap-2">
-        <div class="flex items-center gap-3">
-          <div class="w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_10px_#06B6D4]"></div>
-          <h3 class="text-base font-heading font-bold text-white uppercase tracking-wider font-mono">
-            IC Root // Briefing Vault & Asynchronous Settlement
-          </h3>
-          <span class="text-[10px] text-cyan-300 bg-cyan-950 px-2 py-0.5 rounded border border-cyan-400/40 font-mono font-bold">Sandboxed</span>
-        </div>
-        <span class="text-xs text-amber-300 font-mono flex items-center gap-1">
-          <span>✓</span> Saskatchewan MNDA & Zero AI Training Law
-        </span>
-      </div>
-
-      <!-- Service Tier Selector -->
-      <div class="space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-200">
-            Select Diagnostic Service Tier (Stripe CAD Settlement)
-          </span>
-          <span class="text-xs font-mono text-cyan-300 font-semibold">100% Tax Deductible Business Expense</span>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-3.5 text-xs" id="tierCardsContainer">
-          <!-- Tier 1 -->
-          <div onclick="selectTier('triage')" id="tierCard-triage" class="p-4 rounded-xl border cursor-pointer transition-all border-white/15 bg-[#111A2E] hover:border-white/30">
-            <div class="flex justify-between items-start">
-              <span class="font-bold text-white text-sm">Targeted Triage</span>
-              <span class="font-mono text-cyan-300 font-extrabold text-sm">$350 CAD</span>
+            <input type="range" min="1" max="4" value="2" id="burnSlider" oninput="updateSliders()" class="w-full">
+            <div class="flex justify-between text-xs font-mono text-slate-400 font-medium px-1">
+              <span>&lt;$5k</span><span>$10k–$25k</span><span>$25k–$75k</span><span class="text-rose-400 font-bold">Runaway</span>
             </div>
-            <div class="text-[11px] text-amber-400 font-mono mt-0.5 font-bold">48h SLA</div>
-            <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">
-              Single acute bottleneck, API loop, pricing leak, or critical bug audit.
-            </p>
           </div>
 
-          <!-- Tier 2 -->
-          <div onclick="selectTier('memo')" id="tierCard-memo" class="p-4 rounded-xl border cursor-pointer transition-all border-cyan-400 bg-gradient-to-b from-cyan-950/60 to-blue-950/50 shadow-[0_0_20px_rgba(6,182,212,0.35)] relative">
-            <span class="absolute -top-2.5 right-3 text-[10px] font-mono uppercase bg-gradient-to-r from-cyan-400 to-amber-400 text-black px-2.5 py-0.5 rounded-full font-black shadow">
-              RECOMMENDED
+          <div class="space-y-2.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-slate-300 font-semibold flex items-center gap-1.5">
+                <span>Resolution Horizon</span>
+                <span class="text-[10px] text-slate-400 font-normal">(Target SLA)</span>
+              </span>
+              <span id="urgencyValue" class="font-mono text-amber-300 font-bold text-sm bg-amber-950/80 px-2 py-0.5 rounded border border-amber-500/40">
+                14 Days
+              </span>
+            </div>
+            <input type="range" min="1" max="4" value="2" id="urgencySlider" oninput="updateSliders()" class="w-full">
+            <div class="flex justify-between text-xs font-mono text-slate-400 font-medium px-1">
+              <span>Quarter</span><span>30 Days</span><span>14 Days</span><span class="text-rose-400 font-bold">Emergency</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. OBSERVED SYMPTOMS CHIPS (FRICTION POINTS) -->
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-200">
+                Observed Friction Points (Tap all that apply)
+              </span>
+              <span id="categorySelectedCountBadge" class="text-[10px] font-mono font-bold text-cyan-300 bg-cyan-950 px-2 py-0.5 rounded-full border border-cyan-500/40">
+                0 Selected
+              </span>
+            </div>
+            <span class="text-xs text-slate-400 font-mono">Rough estimates are 100% fine</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="chipsContainer"></div>
+        </div>
+
+        <!-- 4. TARGET GOAL & OUTCOME MANDATE -->
+        <div class="qns-panel p-5 rounded-2xl border border-white/15 space-y-3.5">
+          <div class="flex items-center justify-between">
+            <div class="text-xs font-bold uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-amber-400 flex items-center gap-2">
+              <span>🎯 Target Outcome Mandate</span>
+              <span class="text-slate-400 text-xs font-normal">(What does victory look like on Monday?)</span>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400">Select desired remediation</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs" id="outcomeContainer"></div>
+        </div>
+
+        <!-- 5. ASSISTANT RECON SLACK HELPER (Proxy Mode Only) -->
+        <div id="assistantBox" class="hidden qns-panel border-cyan-500/40 bg-gradient-to-br from-cyan-950/30 via-slate-900 to-amber-950/20 p-5 rounded-2xl space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-cyan-200 flex items-center gap-2">
+              <span class="text-amber-400 text-sm">💬</span>
+              <span>The 3 Numbers for Your Boss / CEO</span>
+              <span class="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full border border-cyan-500/40 font-mono">
+                One-Click Slack Copy
+              </span>
             </span>
-            <div class="flex justify-between items-start">
-              <span class="font-bold text-white text-sm">Teardown Memo</span>
-              <span class="font-mono text-cyan-300 font-extrabold text-sm">$850 CAD</span>
-            </div>
-            <div class="text-[11px] text-amber-400 font-mono mt-0.5 font-bold">5-Day SLA</div>
-            <p class="text-xs text-slate-200 mt-2.5 leading-relaxed">
-              Complete cross-domain teardown: unit economics, architecture, velocity, and 14-day patch plan.
-            </p>
+            <button onclick="copySlackMsg()" class="text-xs text-slate-200 hover:text-white flex items-center gap-1.5 bg-[#0B1120] px-3.5 py-1.5 rounded-lg border border-cyan-400/50 hover:border-cyan-300 transition shadow">
+              <span id="copyFeedback">📋 Copy Message</span>
+            </button>
           </div>
-
-          <!-- Tier 3 -->
-          <div onclick="selectTier('deepdive')" id="tierCard-deepdive" class="p-4 rounded-xl border cursor-pointer transition-all border-white/15 bg-[#111A2E] hover:border-white/30">
-            <div class="flex justify-between items-start">
-              <span class="font-bold text-white text-sm">Full Deep Dive</span>
-              <span class="font-mono text-cyan-300 font-extrabold text-sm">$2,250 CAD</span>
-            </div>
-            <div class="text-[11px] text-rose-400 font-mono mt-0.5 font-bold">Priority SLA</div>
-            <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">
-              End-to-end architecture, contract IP review, profiling, refactor specs, and executive board memo.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Vault Intake Details Form -->
-      <div class="space-y-4 text-xs pt-1">
-        <div>
-          <label class="block text-slate-200 mb-1.5 font-semibold">
-            1. Repository, Architecture Diagram, Financial Model, or Cloud URL (Optional)
-          </label>
-          <input type="text" id="clientRepoUrl" placeholder="https://github.com/org/repo, Figma, Google Drive, or Notion link" 
-            class="w-full bg-[#0B1120] border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 focus:outline-none transition font-mono">
-        </div>
-
-        <div>
-          <label class="block text-slate-200 mb-1.5 font-semibold">
-            2. Attach Schematics, Cloud Invoices, Contracts, or Error Logs (Optional)
-          </label>
-          <div id="dropZone" onclick="document.getElementById('fileUploadInput').click()" 
-            class="border-2 border-dashed border-slate-600 hover:border-cyan-400 bg-[#0B1120]/70 rounded-2xl p-5 text-center cursor-pointer transition-all flex flex-col items-center justify-center gap-2">
-            <input type="file" id="fileUploadInput" multiple onchange="handleFileSelect(event)" class="hidden" accept=".pdf,.png,.jpg,.jpeg,.json,.log,.txt,.csv">
-            <span class="text-2xl">📁</span>
-            <span class="text-xs text-white font-semibold">Click to upload or drag files here</span>
-            <span class="text-[11px] font-mono text-slate-400">PDF, PNG, JPG, JSON, LOG, TXT, CSV (Max 25MB)</span>
-            <div id="selectedFileList" class="flex flex-wrap gap-2 mt-2 hidden"></div>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-slate-200 mb-1.5 font-semibold">
-            3. Raw Context Dump (What is on fire? Unfiltered thoughts, internal politics, or metrics)
-          </label>
-          <textarea id="clientRawNotes" rows="3" placeholder="Tell us what is breaking, who is complaining, where money is leaking, or what you suspect is wrong..." 
-            class="w-full bg-[#0B1120] border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 focus:outline-none transition font-mono leading-relaxed"></textarea>
-        </div>
-
-        <div>
-          <label class="block text-slate-200 mb-1.5 font-semibold">
-            4. Delivery & Receipt Email Address <span class="text-cyan-400 font-bold">*</span>
-          </label>
-          <input type="email" id="clientEmail" placeholder="executive@yourcompany.com" 
-            class="w-full bg-[#0B1120] border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 focus:outline-none transition font-mono">
-          <p id="emailError" class="text-rose-400 text-xs mt-1.5 hidden font-mono">
-            ⚠️ Please provide a valid email address to receive your Stripe receipt and completed teardown memo.
+          <p class="text-xs text-slate-200 font-mono bg-[#070B14]/90 p-4 rounded-xl border border-white/10 leading-relaxed">
+            "Setting up our async teardown with IC Root now. Just need 3 numbers to hit send: 1) Are we authorizing the $350 triage, $850 audit, or $2,250 deep dive? 2) Hard deadline? 3) Best email for the receipt?"
           </p>
         </div>
+
+        <!-- 6. CUSTOM UNLISTED FRICTION INPUT -->
+        <div>
+          <input type="text" id="customInput" placeholder="+ Add specific unlisted friction, custom metric, or acute bottleneck..." 
+            class="w-full bg-[#111A2E] border border-dashed border-slate-600 hover:border-cyan-400 focus:border-cyan-400 focus:outline-none rounded-xl px-4 py-3.5 text-xs text-white placeholder-slate-400 transition-all font-mono">
+        </div>
+
+        <!-- 7. BRIEFING VAULT & STRIPE CHECKOUT SECTION -->
+        <div id="briefingVault" class="qns-panel p-6 md:p-8 rounded-2xl space-y-6 border border-white/20 mt-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/15 pb-4 gap-2">
+            <div class="flex items-center gap-3">
+              <div class="w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_10px_#06B6D4]"></div>
+              <h3 class="text-base font-heading font-bold text-white uppercase tracking-wider font-mono">
+                IC Root // Briefing Vault & Asynchronous Settlement
+              </h3>
+              <span class="text-[10px] text-cyan-300 bg-cyan-950 px-2 py-0.5 rounded border border-cyan-400/40 font-mono font-bold">Sandboxed</span>
+            </div>
+            <span class="text-xs text-amber-300 font-mono flex items-center gap-1">
+              <span>✓</span> Saskatchewan MNDA & Zero AI Training Law
+            </span>
+          </div>
+
+          <!-- Service Tier Selector -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-200">
+                Select Diagnostic Service Tier (Stripe CAD Settlement)
+              </span>
+              <span class="text-xs font-mono text-cyan-300 font-semibold">100% Tax Deductible Business Expense</span>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-3.5 text-xs" id="tierCardsContainer">
+              <!-- Tier 1 -->
+              <div onclick="selectTier('triage')" id="tierCard-triage" class="p-4 rounded-xl border cursor-pointer transition-all border-white/15 bg-[#111A2E] hover:border-white/30">
+                <div class="flex justify-between items-start">
+                  <span class="font-bold text-white text-sm">Targeted Triage</span>
+                  <span class="font-mono text-cyan-300 font-extrabold text-sm">$350 CAD</span>
+                </div>
+                <div class="text-[11px] text-amber-400 font-mono mt-0.5 font-bold">48h SLA</div>
+                <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">
+                  Single acute bottleneck, API loop, pricing leak, or critical bug audit.
+                </p>
+              </div>
+
+              <!-- Tier 2 -->
+              <div onclick="selectTier('memo')" id="tierCard-memo" class="p-4 rounded-xl border cursor-pointer transition-all border-cyan-400 bg-gradient-to-b from-cyan-950/60 to-blue-950/50 shadow-[0_0_20px_rgba(6,182,212,0.35)] relative">
+                <span class="absolute -top-2.5 right-3 text-[10px] font-mono uppercase bg-gradient-to-r from-cyan-400 to-amber-400 text-black px-2.5 py-0.5 rounded-full font-black shadow">
+                  RECOMMENDED
+                </span>
+                <div class="flex justify-between items-start">
+                  <span class="font-bold text-white text-sm">Teardown Memo</span>
+                  <span class="font-mono text-cyan-300 font-extrabold text-sm">$850 CAD</span>
+                </div>
+                <div class="text-[11px] text-amber-400 font-mono mt-0.5 font-bold">5-Day SLA</div>
+                <p class="text-xs text-slate-200 mt-2.5 leading-relaxed">
+                  Complete cross-domain teardown: unit economics, architecture, velocity, and 14-day patch plan.
+                </p>
+              </div>
+
+              <!-- Tier 3 -->
+              <div onclick="selectTier('deepdive')" id="tierCard-deepdive" class="p-4 rounded-xl border cursor-pointer transition-all border-white/15 bg-[#111A2E] hover:border-white/30">
+                <div class="flex justify-between items-start">
+                  <span class="font-bold text-white text-sm">Full Deep Dive</span>
+                  <span class="font-mono text-cyan-300 font-extrabold text-sm">$2,250 CAD</span>
+                </div>
+                <div class="text-[11px] text-rose-400 font-mono mt-0.5 font-bold">Priority SLA</div>
+                <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">
+                  End-to-end architecture, contract IP review, profiling, refactor specs, and executive board memo.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vault Intake Details Form -->
+          <div class="space-y-4 text-xs pt-1">
+            <div>
+              <label class="block text-slate-200 mb-1.5 font-semibold">
+                1. Repository, Architecture Diagram, Financial Model, or Cloud URL (Optional)
+              </label>
+              <input type="text" id="clientRepoUrl" placeholder="https://github.com/org/repo, Figma, Google Drive, or Notion link" 
+                class="w-full bg-[#0B1120] border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 focus:outline-none transition font-mono">
+            </div>
+
+            <div>
+              <label class="block text-slate-200 mb-1.5 font-semibold">
+                2. Attach Schematics, Cloud Invoices, Contracts, or Error Logs (Optional)
+              </label>
+              <div id="dropZone" onclick="document.getElementById('fileUploadInput').click()" 
+                class="border-2 border-dashed border-slate-600 hover:border-cyan-400 bg-[#0B1120]/70 rounded-2xl p-5 text-center cursor-pointer transition-all flex flex-col items-center justify-center gap-2">
+                <input type="file" id="fileUploadInput" multiple onchange="handleFileSelect(event)" class="hidden" accept=".pdf,.png,.jpg,.jpeg,.json,.log,.txt,.csv">
+                <span class="text-2xl">📁</span>
+                <span class="text-xs text-white font-semibold">Click to upload or drag files here</span>
+                <span class="text-[11px] font-mono text-slate-400">PDF, PNG, JPG, JSON, LOG, TXT, CSV (Max 25MB)</span>
+                <div id="selectedFileList" class="flex flex-wrap gap-2 mt-2 hidden"></div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-slate-200 mb-1.5 font-semibold">
+                3. Raw Context Dump (What is on fire? Unfiltered thoughts, internal politics, or metrics)
+              </label>
+              <textarea id="clientRawNotes" rows="3" placeholder="Tell us what is breaking, who is complaining, where money is leaking, or what you suspect is wrong..." 
+                class="w-full bg-[#0B1120] border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 focus:outline-none transition font-mono leading-relaxed"></textarea>
+            </div>
+
+            <div>
+              <label class="block text-slate-200 mb-1.5 font-semibold">
+                4. Delivery & Receipt Email Address <span class="text-cyan-400 font-bold">*</span>
+              </label>
+              <input type="email" id="clientEmail" placeholder="executive@yourcompany.com" 
+                class="w-full bg-[#0B1120] border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 focus:outline-none transition font-mono">
+              <p id="emailError" class="text-rose-400 text-xs mt-1.5 hidden font-mono">
+                ⚠️ Please provide a valid email address to receive your Stripe receipt and completed teardown memo.
+              </p>
+            </div>
+          </div>
+
+          <!-- Statutory MNDA Guarantee Box -->
+          <div class="p-4 bg-[#070B14] rounded-xl border border-white/10 text-xs text-slate-300 leading-relaxed font-mono space-y-2">
+            <div class="flex items-center justify-between text-cyan-300 font-bold">
+              <span class="flex items-center gap-2">
+                <span>🛡️</span> MNDA GUARANTEE & STATUTORY ZERO-AI WARRANTY
+              </span>
+              <span class="text-[10px] text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-500/40">
+                #ICROOT-SHA256-VERIFIED
+              </span>
+            </div>
+            <p>
+              Submitting materials under the IC Root Diagnostic Protocol initiates binding mutual non-disclosure under Saskatchewan law. <strong>EXPLICIT WARRANTY:</strong> Zero client code, financials, schematics, or briefing context are ever retained or utilized to train, fine-tune, or adapt any public or third-party AI foundation models.
+            </p>
+          </div>
+
+          <!-- Action Button inside Vault -->
+          <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span class="text-xs font-mono text-slate-300">
+              Payment settled instantly via Stripe. Automated tax invoice dispatched upon transaction.
+            </span>
+            <button onclick="triggerSubmit()" id="vaultCheckoutBtn" class="w-full sm:w-auto px-8 py-3.5 bg-prismatic hover:brightness-110 text-white text-xs font-extrabold uppercase tracking-wider rounded-xl shadow-lg glow-quantum transition-all active:scale-95 flex items-center justify-center gap-2">
+              <span id="vaultBtnLabel">Lock Telemetry & Pay via Stripe ($850 CAD)</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Statutory MNDA Guarantee Box -->
-      <div class="p-4 bg-[#070B14] rounded-xl border border-white/10 text-xs text-slate-300 leading-relaxed font-mono space-y-2">
-        <div class="flex items-center justify-between text-cyan-300 font-bold">
-          <span class="flex items-center gap-2">
-            <span>🛡️</span> MNDA GUARANTEE & STATUTORY ZERO-AI WARRANTY
-          </span>
-          <span class="text-[10px] text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-500/40">
-            #ICROOT-SHA256-VERIFIED
+      <!-- 8. BOTTOM DOCKED BAR (SLIM, NON-OBTRUSIVE) -->
+      <footer class="sticky bottom-0 h-14 bg-[#0B1120]/95 backdrop-blur-md border-t border-white/15 px-4 md:px-8 flex items-center justify-between z-20 shrink-0">
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-mono text-slate-300">
+            SELECTED: <span id="totalSelectedBadge" class="text-cyan-300 font-bold bg-cyan-950 px-2 py-0.5 rounded border border-cyan-400/40">0 items</span> across domains
           </span>
         </div>
-        <p>
-          Submitting materials under the IC Root Diagnostic Protocol initiates binding mutual non-disclosure under Saskatchewan law. <strong>EXPLICIT WARRANTY:</strong> Zero client code, financials, schematics, or briefing context are ever retained or utilized to train, fine-tune, or adapt any public or third-party AI foundation models.
-        </p>
-      </div>
 
-      <!-- Action Button inside Vault -->
-      <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <span class="text-xs font-mono text-slate-300">
-          Payment settled instantly via Stripe. Automated tax invoice dispatched upon transaction.
-        </span>
-        <button onclick="triggerSubmit()" id="vaultCheckoutBtn" class="w-full sm:w-auto px-8 py-3.5 bg-prismatic hover:brightness-110 text-white text-xs font-extrabold uppercase tracking-wider rounded-xl shadow-lg glow-quantum transition-all active:scale-95 flex items-center justify-center gap-2">
-          <span id="vaultBtnLabel">Lock Telemetry & Pay via Stripe ($850 CAD)</span>
-          <span>→</span>
-        </button>
-      </div>
-    </div>
-  </main>
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-slate-400 hidden sm:inline font-mono">100% Async • Zero Meetings</span>
+          <button onclick="triggerSubmit()" id="footerCheckoutBtn" class="px-5 py-2 bg-prismatic hover:brightness-110 text-white text-xs font-bold rounded-xl shadow-lg glow-quantum transition-all active:scale-95 flex items-center gap-2">
+            <span id="footerBtnLabel">Lock Diagnostic ($850 CAD)</span>
+            <span>→</span>
+          </button>
+        </div>
+      </footer>
 
-  <!-- 6. FIXED BOTTOM ACTION DOCK -->
-  <footer class="fixed bottom-0 left-0 right-0 h-16 bg-[#0B1120]/95 backdrop-blur-md border-t border-white/15 px-4 md:px-8 flex items-center justify-between z-50">
-    <div class="flex items-center gap-3">
-      <span class="text-xs font-mono text-slate-300">
-        SELECTED: <span id="totalSelectedBadge" class="text-cyan-300 font-bold bg-cyan-950 px-2 py-0.5 rounded border border-cyan-400/40">0 items</span> across domains
-      </span>
-    </div>
+    </main>
 
-    <div class="flex items-center gap-4">
-      <span class="text-xs text-slate-400 hidden sm:inline font-mono">100% Async • Zero Meetings Guaranteed</span>
-      <button onclick="triggerSubmit()" id="footerCheckoutBtn" class="px-6 py-2.5 bg-prismatic hover:brightness-110 text-white text-xs font-bold rounded-xl shadow-lg glow-quantum transition-all active:scale-95 flex items-center gap-2">
-        <span id="footerBtnLabel">Lock Diagnostic & Proceed ($850 CAD)</span>
-        <span>→</span>
-      </button>
-    </div>
-  </footer>
+  </div>
 
-  <!-- 7. STRIPE PAYMENT OVERLAY MODAL -->
+  <!-- STRIPE PAYMENT OVERLAY MODAL -->
   <div id="stripeModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
     <div class="bg-[#111A2E] border border-white/20 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl modal-animate flex flex-col">
       
@@ -917,6 +901,7 @@
     let selectedChips = new Set();
     let selectedOutcomes = new Set();
     let uploadedFiles = [];
+    let isMobileSidebarOpen = false;
 
     /* ==========================================================================
        2. INITIALIZATION & CORE RENDERING
@@ -930,15 +915,26 @@
       updateTelemetry();
     }
 
+    function toggleMobileSidebar() {
+      const sidebar = document.getElementById('sidebarPanel');
+      const backdrop = document.getElementById('mobileBackdrop');
+      isMobileSidebarOpen = !isMobileSidebarOpen;
+
+      if (isMobileSidebarOpen) {
+        sidebar.classList.remove('-translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    }
+
     function toggleHelpGuide() {
       const panel = document.getElementById('helpGuidePanel');
-      const chevron = document.getElementById('helpChevron');
       if (panel.classList.contains('hidden')) {
         panel.classList.remove('hidden');
-        chevron.innerText = '▴';
       } else {
         panel.classList.add('hidden');
-        chevron.innerText = '▾';
       }
     }
 
@@ -950,13 +946,13 @@
       const guidance = document.getElementById('personaGuidanceText');
 
       if (role === 'exec') {
-        execBtn.className = "px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-md transition-all";
-        proxyBtn.className = "px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition-all";
+        execBtn.className = "px-3 py-1 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-md transition-all text-xs";
+        proxyBtn.className = "px-3 py-1 rounded-lg text-slate-300 hover:text-white transition-all text-xs";
         assistantBox.classList.add('hidden');
         guidance.innerHTML = '<strong class="text-cyan-300">Founder / CTO Lens:</strong> Pinpoint structural leaks and unit margin compression. Select symptoms below to compute remediation priority.';
       } else {
-        proxyBtn.className = "px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-bold shadow-md transition-all";
-        execBtn.className = "px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition-all";
+        proxyBtn.className = "px-3 py-1 rounded-lg bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-bold shadow-md transition-all text-xs";
+        execBtn.className = "px-3 py-1 rounded-lg text-slate-300 hover:text-white transition-all text-xs";
         assistantBox.classList.remove('hidden');
         guidance.innerHTML = '<strong class="text-amber-300">Assistant / Proxy Lens:</strong> Non-technical view activated. Select what you hear the team or leadership discussing. The Slack helper below allows instant approval.';
       }
@@ -972,20 +968,21 @@
       const techBtn = document.getElementById('domainTechBtn');
 
       [allBtn, bizBtn, techBtn].forEach(b => {
-        b.className = "px-3 py-1 rounded-lg text-slate-300 hover:text-white transition";
+        b.className = "py-1 px-1 rounded-lg text-slate-300 hover:text-white text-center transition";
       });
 
       if (domain === 'all') {
-        allBtn.className = "px-3 py-1 rounded-lg bg-cyan-500 text-black font-extrabold shadow transition";
+        allBtn.className = "py-1 px-1 rounded-lg bg-cyan-500 text-black font-extrabold shadow text-center transition";
       } else if (domain === 'business') {
-        bizBtn.className = "px-3 py-1 rounded-lg bg-emerald-500 text-black font-extrabold shadow transition";
+        bizBtn.className = "py-1 px-1 rounded-lg bg-emerald-500 text-black font-extrabold shadow text-center transition";
       } else if (domain === 'tech') {
-        techBtn.className = "px-3 py-1 rounded-lg bg-blue-500 text-white font-extrabold shadow transition";
+        techBtn.className = "py-1 px-1 rounded-lg bg-blue-500 text-white font-extrabold shadow text-center transition";
       }
 
       renderCategoryMatrix();
     }
 
+    /* Renders Vertical Category Cards in Sidebar */
     function renderCategoryMatrix() {
       const container = document.getElementById('categoryMatrix');
       container.innerHTML = categories.map((cat, idx) => {
@@ -997,27 +994,34 @@
         const count = cat.chips.filter(c => selectedChips.has(c.id)).length;
         const hasSelection = count > 0;
 
-        let borderClass = 'border-white/15 bg-[#111A2E] hover:border-white/30';
+        let borderClass = 'border-white/10 bg-[#131D31] hover:border-white/25 hover:bg-[#18243D]';
         if (isActive) {
-          borderClass = 'border-cyan-400 bg-gradient-to-b from-cyan-950/70 to-blue-950/60 shadow-[0_0_15px_rgba(6,182,212,0.3)] ring-1 ring-cyan-400/50';
+          borderClass = 'border-cyan-400 bg-gradient-to-r from-cyan-950/90 via-[#182845] to-[#14213B] shadow-[0_0_18px_rgba(6,182,212,0.35)] ring-1 ring-cyan-400/60';
         } else if (hasSelection) {
-          borderClass = 'border-amber-400/90 bg-[#162238] shadow-[0_0_12px_rgba(245,158,11,0.25)]';
+          borderClass = 'border-amber-400/80 bg-[#172238] shadow-[0_0_12px_rgba(245,158,11,0.25)]';
         }
 
         return `
-          <button onclick="selectCategory(${idx})" class="p-2.5 rounded-xl border text-left transition-all relative ${borderClass}">
+          <button onclick="selectCategory(${idx})" class="w-full p-3 rounded-xl border text-left transition-all relative flex items-center justify-between gap-2.5 ${borderClass}">
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="text-xl shrink-0">${cat.icon}</span>
+              <div class="min-w-0">
+                <div class="text-xs font-bold ${isActive ? 'text-white font-heading text-glow-cyan' : 'text-slate-200'} truncate">
+                  ${cat.title}
+                </div>
+                <div class="text-[11px] ${isActive ? 'text-cyan-300 font-semibold' : 'text-slate-400'} truncate">
+                  ${cat.sub}
+                </div>
+              </div>
+            </div>
+
             ${hasSelection ? `
-              <span class="absolute top-1.5 right-1.5 text-[10px] font-mono font-black text-slate-950 bg-gradient-to-r from-amber-400 to-cyan-400 px-2 py-0.2 rounded-full shadow-[0_0_8px_rgba(245,158,11,0.6)]">
+              <span class="shrink-0 text-[10px] font-mono font-black text-slate-950 bg-gradient-to-r from-amber-400 to-cyan-400 px-2 py-0.5 rounded-full shadow-[0_0_8px_rgba(245,158,11,0.6)] animate-pulse">
                 ${count}✓
               </span>
-            ` : ''}
-            <div class="flex items-center gap-1.5">
-              <span class="text-sm">${cat.icon}</span>
-              <span class="text-xs font-bold ${isActive ? 'text-white font-heading' : 'text-slate-200'} truncate">${cat.title}</span>
-            </div>
-            <div class="text-[10px] ${isActive ? 'text-cyan-300 font-semibold' : 'text-slate-400'} truncate pl-5">
-              ${cat.sub}
-            </div>
+            ` : (isActive ? `
+              <span class="shrink-0 w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_6px_#06B6D4]"></span>
+            ` : '')}
           </button>
         `;
       }).join('');
@@ -1030,6 +1034,11 @@
       renderCategoryMatrix();
       renderActiveCategory();
       updateTelemetry();
+
+      // If on mobile, close sidebar upon selection
+      if (window.innerWidth < 1024 && isMobileSidebarOpen) {
+        toggleMobileSidebar();
+      }
     }
 
     function renderActiveCategory() {
@@ -1061,7 +1070,7 @@
         }
 
         return `
-          <div onclick="toggleChip('${chip.id}')" class="p-3.5 rounded-xl border cursor-pointer transition-all flex flex-col justify-between ${chipStyle}">
+          <div onclick="toggleChip('${chip.id}')" class="p-4 rounded-xl border cursor-pointer transition-all flex flex-col justify-between ${chipStyle}">
             <div class="flex items-center justify-between gap-2">
               <div class="flex items-center gap-3">
                 <div class="w-5 h-5 rounded-md border flex items-center justify-center transition-all ${
@@ -1071,7 +1080,7 @@
                 }">
                   ${isChecked ? '✓' : ''}
                 </div>
-                <span class="text-xs font-bold leading-snug">${chip.label}</span>
+                <span class="text-xs md:text-sm font-bold leading-snug">${chip.label}</span>
               </div>
               ${isChecked ? `
                 <span class="text-[9px] font-mono font-black uppercase text-cyan-300 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-400/50">
@@ -1081,7 +1090,7 @@
             </div>
 
             ${currentRole === 'proxy' ? `
-              <div class="text-xs text-amber-200/90 mt-2 pl-8 font-mono bg-slate-950/60 p-2 rounded-lg border border-amber-500/20">
+              <div class="text-xs text-amber-200/90 mt-2.5 pl-8 font-mono bg-slate-950/60 p-2.5 rounded-lg border border-amber-500/20">
                 💬 "${chip.assist}"
               </div>
             ` : ''}
@@ -1101,7 +1110,7 @@
         }
 
         return `
-          <div onclick="toggleOutcome('${id}')" class="p-3 rounded-xl border cursor-pointer transition-all flex items-start gap-2.5 ${outStyle}">
+          <div onclick="toggleOutcome('${id}')" class="p-3.5 rounded-xl border cursor-pointer transition-all flex items-start gap-2.5 ${outStyle}">
             <span class="text-sm font-bold ${isSelected ? 'text-emerald-300' : 'text-slate-500'} mt-0.5">
               ${isSelected ? '✓' : '○'}
             </span>
@@ -1143,10 +1152,11 @@
       updateTelemetry();
     }
 
-    /* Renders the top real-time active tags pill drawer */
+    /* Renders the Sidebar Active Tags Drawer */
     function renderActiveTagsTray() {
-      const tray = document.getElementById('activeTagsTray');
-      const list = document.getElementById('activeTagsList');
+      const box = document.getElementById('sidebarActiveTagsBox');
+      const list = document.getElementById('sidebarActiveTagsList');
+      const countEl = document.getElementById('sidebarActiveCount');
       const pillCount = document.getElementById('activeTagsPillCount');
 
       const allActiveChips = [];
@@ -1159,23 +1169,24 @@
       });
 
       pillCount.innerText = `${allActiveChips.length} Added`;
+      countEl.innerText = allActiveChips.length;
 
       if (allActiveChips.length === 0) {
-        tray.classList.add('hidden');
+        box.classList.add('hidden');
         return;
       }
 
-      tray.classList.remove('hidden');
+      box.classList.remove('hidden');
       list.innerHTML = allActiveChips.map(({ cat, chip }) => {
-        let tagBg = 'bg-cyan-950 text-cyan-200 border-cyan-400/50';
+        let tagBg = 'bg-cyan-950/80 text-cyan-200 border-cyan-400/50';
         if (cat.domain === 'business') {
-          tagBg = 'bg-emerald-950 text-emerald-200 border-emerald-400/50';
+          tagBg = 'bg-emerald-950/80 text-emerald-200 border-emerald-400/50';
         }
 
         return `
-          <span class="inline-flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-1 rounded-full border shadow-sm ${tagBg}">
-            <span>${cat.icon} <strong>${cat.title.split(' ')[0]}:</strong> ${chip.label}</span>
-            <button onclick="removeChipDirect('${chip.id}')" class="hover:text-white text-xs font-black ml-1">✕</button>
+          <span class="inline-flex items-center gap-1 text-[10px] font-mono px-2 py-0.5 rounded-md border shadow-sm ${tagBg}">
+            <span>${cat.icon} ${chip.label.split(' ')[0]}...</span>
+            <button onclick="removeChipDirect('${chip.id}')" class="hover:text-white font-bold ml-0.5">✕</button>
           </span>
         `;
       }).join('');
