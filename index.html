@@ -326,13 +326,6 @@
             </button>
 
 
-            <button type="button" onclick="document.getElementById('fileUploadInput').click()" 
-              class="px-4 py-2.5 rounded-xl bg-[#18243D] hover:bg-[#203052] border border-white/15 text-slate-200 hover:text-white font-medium text-xs flex items-center gap-2 transition shadow active:scale-95">
-              <span>📎</span>
-              <span>Attach File / Invoice / Log</span>
-            </button>
-
-
             <div class="flex items-center gap-1.5 ml-auto flex-wrap">
               <span class="text-[10px] font-mono uppercase text-slate-400 font-bold hidden md:inline">Quick Injects:</span>
               <button type="button" onclick="injectPresetText('Cloud bill tripled overnight without user growth; need immediate cache & egress audit.')" 
@@ -458,7 +451,7 @@
             <div class="space-y-2">
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                 <label class="block text-slate-200 font-semibold text-xs">
-                  1. Shared Cloud Link, Repository, or Large Asset URL (Recommended for files &gt; 25MB)
+                  1. Shared Cloud Link or Repository URL (Google Drive, GitHub, Dropbox, WeTransfer, Figma)
                 </label>
                 <span class="text-[11px] font-mono text-cyan-400 font-semibold">Drive • GitHub • Dropbox • WeTransfer • Figma</span>
               </div>
@@ -493,46 +486,9 @@
             </div>
 
 
-            <div class="space-y-2">
-              <div class="flex items-center justify-between">
-                <label class="block text-slate-200 font-semibold text-xs">
-                  2. Attach Schematics, Cloud Invoices, Contracts, or Logs (Direct Upload ≤ 25MB)
-                </label>
-                <span class="text-[11px] font-mono text-slate-400">Encrypted transmission</span>
-              </div>
-
-
-              <div id="dropZone" onclick="document.getElementById('fileUploadInput').click()" 
-                class="border-2 border-dashed border-slate-600 hover:border-cyan-400 bg-[#0B1120]/70 rounded-2xl p-6 text-center cursor-pointer transition-all flex flex-col items-center justify-center gap-2 relative">
-                <input type="file" id="fileUploadInput" multiple onchange="handleFileSelect(event)" class="hidden" accept=".pdf,.png,.jpg,.jpeg,.json,.log,.txt,.csv,.zip,.tar,.gz">
-                <span class="text-3xl">📁</span>
-                <div class="space-y-0.5">
-                  <span class="text-xs text-white font-bold block">Click to upload or drag files here</span>
-                  <span class="text-[11px] font-mono text-slate-400 block">PDF, PNG, JPG, JSON, LOG, TXT, CSV, ZIP (Max 25MB per file)</span>
-                </div>
-
-
-                <div class="mt-2 pt-2 border-t border-white/10 flex items-center justify-center gap-2 text-[11px] font-mono text-amber-300">
-                  <span>💡 Files larger than 25MB?</span>
-                  <button type="button" onclick="event.stopPropagation(); focusLinkInput();" class="underline hover:text-amber-200 font-bold">
-                    Paste shared cloud link above ↗
-                  </button>
-                </div>
-
-
-                <div id="fileSizeWarning" class="hidden w-full mt-2 p-2.5 bg-rose-950/80 border border-rose-500/50 rounded-xl text-rose-200 text-xs font-mono text-center">
-                  ⚠️ <span id="fileSizeWarningText">File exceeds 25MB limit. Please paste a cloud link (Google Drive, WeTransfer, Dropbox) in the URL field above.</span>
-                </div>
-
-
-                <div id="selectedFileList" class="flex flex-wrap gap-2 mt-3 hidden"></div>
-              </div>
-            </div>
-
-
             <div>
               <label class="block text-slate-200 mb-1.5 font-semibold">
-                3. Delivery & Receipt Email Address <span class="text-cyan-400 font-bold">*</span>
+                2. Delivery & Receipt Email Address <span class="text-cyan-400 font-bold">*</span>
               </label>
               <input type="email" id="clientEmail" placeholder="executive@yourcompany.com" 
                 class="w-full bg-[#0B1120] border border-slate-700 rounded-xl p-3 text-xs text-white focus:border-cyan-400 focus:outline-none transition font-mono">
@@ -961,7 +917,6 @@
     let currentPain = 'bleed';
     let selectedChips = new Set();
     let selectedOutcomes = new Set();
-    let uploadedFiles = [];
     let isMobileSidebarOpen = false;
     let isRecording = false;
     let recognition = null;
@@ -982,8 +937,7 @@
      * Submissions are automatically recorded to Google Sheets and emailed to krash6t9@gmail.com.
      * When left empty, client dossiers are still securely cached in local storage and attached to Stripe.
      */
-    const VAULT_ENDPOINT = ""; 
-    let uploadedFilesData = [];
+    const VAULT_ENDPOINT = "https://script.google.com/macros/s/AKfycbwy0_6t7UpEDh_kTVRnEpMWbORy83doKdLK4oubXy2hxGcfzGeW5mCA-fdkhIzDMx-O5A/exec"; 
 
 
     function focusLinkInput() {
@@ -1508,76 +1462,7 @@
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         if (isMediaRecording) {
           stopAudioMemoRecording();
-        } else {
-          startAudioMemoRecording();
-        }
-      } else {
-        alert("Voice recognition is not natively supported in this browser. Please type directly into the notes field.");
-      }
-    }
-
-    async function startAudioMemoRecording() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream);
-        audioChunks = [];
-
-        mediaRecorder.ondataavailable = (e) => {
-          if (e.data && e.data.size > 0) audioChunks.push(e.data);
-        };
-
-        mediaRecorder.onstop = () => {
-          const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const fileName = `voice_memo_${new Date().toISOString().replace(/[:.]/g, '-')}.webm`;
-            uploadedFilesData.push({
-              name: fileName,
-              size: audioBlob.size,
-              type: audioBlob.type || 'audio/webm',
-              base64: reader.result
-            });
-
-            const textarea = document.getElementById('clientRawNotes');
-            if (textarea) {
-              const memoNotice = `[🎙️ Voice Memo Attached: ${fileName} (${Math.round(audioBlob.size / 1024)} KB)]`;
-              textarea.value = (textarea.value ? textarea.value + '\n' : '') + memoNotice;
-            }
-            renderSelectedFilesList();
-          };
-          reader.readAsDataURL(audioBlob);
-          stream.getTracks().forEach(track => track.stop());
-        };
-
-        mediaRecorder.start();
-        isMediaRecording = true;
-        isRecording = true;
-
-        const btn = document.getElementById('voiceDictateBtn');
-        if (btn) btn.className = "px-4 py-2.5 rounded-xl bg-rose-600 text-white font-bold text-xs flex items-center gap-2 transition shadow-lg animate-pulse";
-        const label = document.getElementById('voiceDictateLabel');
-        if (label) label.innerText = "Recording Audio Memo... (Click to Finish)";
-        const mic = document.getElementById('micIcon');
-        if (mic) mic.innerText = "🔴";
-        const status = document.getElementById('dictationStatus');
-        if (status) {
-          status.innerText = "Recording Audio Memo...";
-          status.classList.remove('hidden');
-        }
-      } catch (err) {
-        console.error("Microphone access error:", err);
-        alert("Microphone permission was denied or is unavailable.");
-      }
-    }
-
     function stopAudioMemoRecording() {
-      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-        mediaRecorder.stop();
-      }
-      isMediaRecording = false;
-      stopVoiceDictation();
-    }
-
     function stopVoiceDictation() {
       isRecording = false;
       isMediaRecording = false;
@@ -1640,90 +1525,6 @@
     }
 
 
-    function setupDragDrop() {
-      const dropZone = document.getElementById('dropZone');
-      if (!dropZone) return;
-
-
-      ['dragenter', 'dragover'].forEach(eventName => {
-        dropZone.addEventListener(eventName, (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          dropZone.classList.add('border-cyan-400', 'bg-cyan-950/30');
-        });
-      });
-
-
-      ['dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          dropZone.classList.remove('border-cyan-400', 'bg-cyan-950/30');
-        });
-      });
-
-
-      dropZone.addEventListener('drop', (e) => {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-        handleFiles(files);
-      });
-    }
-
-
-    function handleFileSelect(e) {
-      const files = e.target.files;
-      handleFiles(files);
-    }
-
-
-    function handleFiles(files) {
-      const list = document.getElementById('selectedFileList');
-      const warning = document.getElementById('fileSizeWarning');
-      const warningText = document.getElementById('fileSizeWarningText');
-      warning.classList.add('hidden');
-      list.classList.remove('hidden');
-
-
-      const MAX_BYTES = 25 * 1024 * 1024;
-
-
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-
-
-        if (file.size > MAX_BYTES) {
-          const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
-          warningText.innerText = `"${file.name}" is ${sizeMB}MB (exceeds 25MB limit). Switched to Link mode — please paste a Google Drive, Dropbox, or WeTransfer link above.`;
-          warning.classList.remove('hidden');
-          focusLinkInput();
-          continue;
-        }
-
-
-        uploadedFiles.push(file);
-
-
-        const pill = document.createElement('span');
-        pill.className = "bg-[#0B1120] text-cyan-300 px-2.5 py-1 rounded-lg border border-cyan-500/40 text-[11px] font-mono flex items-center gap-1.5 shadow";
-        const sizeKB = Math.round(file.size / 1024);
-        pill.innerHTML = `<span>📎 ${file.name} (${sizeKB}KB)</span>`;
-        list.appendChild(pill);
-
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const base64Str = e.target.result.split(',')[1];
-          uploadedFilesData.push({
-            name: file.name,
-            type: file.type || 'application/octet-stream',
-            size: file.size,
-            base64: base64Str
-          });
-        };
-        reader.readAsDataURL(file);
-      }
-    }
 
 
     function triggerSubmit() {
@@ -1799,6 +1600,10 @@
         sla: tier.sla,
         filesSummary: uploadedFilesData.map(f => ({ name: f.name, size: f.size, type: f.type })),
         files: uploadedFilesData
+        rawNotes: document.getElementById('clientRawNotes').value.trim(),
+        tier: tier.name,
+        amountCAD: tier.priceFormatted,
+        sla: tier.sla
       };
 
       const payloadString = JSON.stringify(payload);
