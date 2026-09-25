@@ -1013,8 +1013,8 @@
         currency: 'CAD',
         priceFormatted: '$850 CAD',
         sla: '5-Day SLA',
-        desc: 'Complete cross-domain teardown: unit economics, architecture, velocity, and 14-day patch plan.'
         desc: 'Cross-domain synthesis: correlates interconnecting friction across multiple modules with a 14-day patch plan.'
+      },
       deepdive: {
         id: 'deepdive',
         name: 'Full Deep Dive',
@@ -1022,8 +1022,8 @@
         currency: 'CAD',
         priceFormatted: '$2,250 CAD',
         sla: 'Priority SLA',
-        desc: 'End-to-end architecture, contract IP review, profiling, refactor specs, and executive board memo.'
         desc: 'Forensic & governance scope: comprehensive architecture audit, contract IP review, code profiling, refactor specs, and board memo.'
+      }
     };
 
     let selectedTier = 'memo';
@@ -1698,7 +1698,13 @@
       }, 2100);
     }
 
-    window.addEventListener('DOMContentLoaded', init);
+    window.onload = init;
+  </script>
+</body>
+</html>
+    }
+
+    window.onload = init;
   </script>
 </body>
 </html>
